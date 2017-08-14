@@ -158,6 +158,7 @@ public class Transactions implements Serializable{
      */
     protected Transactions(){}
 
+
     /**
      * public constructor for creating instances
      * @param description transaction information
@@ -168,6 +169,7 @@ public class Transactions implements Serializable{
      */
     public Transactions(String description, int amount,List<Long> lender, List<Long> borrower,String mop){
 
+      this.groupId = groupId;
         this.description = description;
         this.amount = amount;
         this.mop = mop;
