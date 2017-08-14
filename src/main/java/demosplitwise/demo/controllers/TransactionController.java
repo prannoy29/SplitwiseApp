@@ -67,7 +67,6 @@ public class TransactionController {
     @RequestMapping("/transaction/findAll")
     public List<Transactions> findAll() {
         List<Transactions> mylist = new ArrayList();
-        System.out.println("fffffffff");
         for (Transactions trans : transRepository.findAll()) {
             mylist.add(trans);
         }
