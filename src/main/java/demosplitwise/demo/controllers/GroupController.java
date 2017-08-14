@@ -44,14 +44,14 @@ public class GroupController {
     }
 
     @RequestMapping(value="/group/findById", method = RequestMethod.GET)
-    public Group findById(@RequestParam("id")long id){
+    public Group findById(@RequestParam("groupId")long id){
         return groupRepo.findOne(id);
     }
 
     @RequestMapping(value="/group/findAllByUserId",method = RequestMethod.GET)
-    public List<Group> findAllByUserId(@RequestParam("id")long id){
+    public List<Group> findAllByUserId(@RequestParam("userId")long userId){
         List<Group> mylist = new ArrayList<>();
-        for(UserGroup userGroup: userGroupRepository.findByUserId(id)){
+        for(UserGroup userGroup: userGroupRepository.findByUserId(userId)){
             mylist.add(groupRepo.findByGroupId(userGroup.getGid()));
         }
 
