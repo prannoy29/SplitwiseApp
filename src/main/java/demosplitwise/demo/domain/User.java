@@ -4,8 +4,12 @@ package demosplitwise.demo.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * User entity having primary key as userId, and other attributes userName, emailId, phoneNumber,
+ * age, debt
+ */
 @Entity
-@Table(name="splitwiseusers")
+@Table(name="splitwiseUsers")
 public class User implements Serializable{
     private static final long serialVersionUID = -3009157732242249406L;
     @Id
@@ -13,80 +17,137 @@ public class User implements Serializable{
     @Column(name="UserId", unique = true)
     private long userId;
 
-    @Column(name="userName",unique = true)
-    private String name;
-
-    @Column(name="emailId")
-    private String emailId;
-
-    @Column(name="phoneNumber")
-    private String phoneNumber;
-
-    @Column(name="age")
-    private int age;
-
-    @Column(name="debt")
-    private int debt;
-
-    protected User(){}
-
-    public User(String name,String emailid,String phone_number,int age){
-        this.name=name;
-        this.emailId=emailid;
-        this.phoneNumber=phone_number;
-        this.age=age;
-    }
-
-    public long getUserid() {
+    /**
+     * getter for userId
+     * @return long UserId
+     */
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserid(long userid) {
-        this.userId = userid;
+    /**
+     * setter for userId
+     * @param userId long UserId
+     */
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
+    @Column(name="userName",unique = true)
+    private String name;
+
+    /**
+     * getter for Name
+     * @return String Name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * setter for name
+     * @param name String Name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getEmailID() {
+    @Column(name="emailId")
+    private String emailId;
+
+    /**
+     * getter for EmailId
+     * @return String EmailId
+     */
+    public String getEmailId() {
         return emailId;
     }
 
-    public void setEmailID(String emailID) {
-        this.emailId = emailID;
+    /**
+     * setter for emailId
+     * @param emailId String emailId
+     */
+    public void setEmailID(String emailId) {
+        this.emailId = emailId;
     }
 
-    public String getPhone_number() {
+    @Column(name="phoneNumber")
+    private String phoneNumber;
+
+    /**
+     * getter phoneNumber
+     * @return String phoneNumber
+     */
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phoneNumber = phone_number;
+    /**
+     * setter for phoneNumber
+     * @param phoneNumber
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
+    @Column(name="age")
+    private int age;
 
-
+    /**
+     * getter for age
+     * @return String age
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * setter for age
+     * @param age String age
+     */
     public void setAge(int age) {
         this.age = age;
     }
 
+    @Column(name="debt")
+    private int debt;
+
+    /**
+     * getter debt
+     * @return int debt
+     */
     public int getDebt() {
         return debt;
     }
 
+    /**
+     * setter debt
+     * @param debt int debt
+     */
     public void setDebt(int debt) {
         this.debt = debt;
     }
 
+    protected User(){}
+
+    /**
+     * public constructor for User
+     * @param name
+     * @param emailId
+     * @param phone_number
+     * @param age
+     */
+    public User(String name,String emailId,String phone_number,int age){
+        this.name=name;
+        this.emailId=emailId;
+        this.phoneNumber=phone_number;
+        this.age=age;
+    }
+
+    /**
+     * Overriden toString method to convert object to string
+     * @return String details of User
+     */
     @Override
     public String toString(){
         return String.format("User[userid=%d,name=%s, emailid=%s, phone_number=%s, age=%d, debt=%d]",userId,name,

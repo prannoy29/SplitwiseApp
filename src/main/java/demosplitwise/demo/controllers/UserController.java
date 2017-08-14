@@ -20,18 +20,18 @@ public class UserController {
     UserGroupRepository userGroupRepository;
 
 
-    @RequestMapping(value ="user/save", method= RequestMethod.POST)
+    @RequestMapping(value ="/user/save", method= RequestMethod.POST)
     public void save( @RequestBody User user){
         repository.save(user);
     }
 
-    @RequestMapping(value = "/update", method= RequestMethod.PUT)
+    @RequestMapping(value = "/user/update", method= RequestMethod.PUT)
     public String update(@RequestBody User user){
         repository.save(user);
         return "done";
     }
 
-    @RequestMapping(value = "user/findAll", method= RequestMethod.GET)
+    @RequestMapping(value = "/user/findAll", method= RequestMethod.GET)
     public List<User> findAll(){
         List<User> results = new ArrayList<>();
 
