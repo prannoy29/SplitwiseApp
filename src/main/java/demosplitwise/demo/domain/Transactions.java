@@ -84,8 +84,9 @@ public class Transactions implements Serializable{
 
     protected Transactions(){}
 
-    public Transactions(String description, int amount,List<Long> lender, List<Long> borrower,String mop){
+    public Transactions(long groupId,String description, int amount,List<Long> lender, List<Long> borrower,String mop){
 
+        this.groupId = groupId;
         this.description = description;
         this.amount = amount;
         this.mop = mop;
