@@ -75,12 +75,12 @@ public class TransactionController {
         return mylist;
     }
 
-    @RequestMapping("transaction/findById")
+    @RequestMapping("/transaction/findById")
     public Transactions findById(@RequestParam("id") long id) {
         return transRepository.findOne(id);
     }
 
-    @RequestMapping("transaction/findAllByGroupId")
+    @RequestMapping("/transaction/findAllByGroupId")
     public List<Transactions> findAllByGroupId(@RequestParam("id") long id) {
         List<Transactions> mylist = new ArrayList();
         for (Transactions transactions : transRepository.findByGroupId(id)) {
@@ -90,7 +90,7 @@ public class TransactionController {
         return mylist;
     }
 
-    @RequestMapping("transaction/findAllByUserId")
+    @RequestMapping("/transaction/findAllByUserId")
     public List<Transactions> findAllByUserId(@RequestParam("id") long id) {
         List<Transactions> mylist = new ArrayList();
         for (UserTransaction userTransaction : userTransactionRepository.findByUserId(id)) {
@@ -99,7 +99,7 @@ public class TransactionController {
         return mylist;
     }
 
-    @RequestMapping("transaction/findGroupByUserId")
+    @RequestMapping("/transaction/findGroupByUserId")
     public List<Transactions> findGroupByUserId(@RequestParam("groupId") long groupId,
                                                 @RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
@@ -109,7 +109,7 @@ public class TransactionController {
         return mylist;
     }
 
-    @RequestMapping("transaction/findNonGroupByUserId")
+    @RequestMapping("/transaction/findNonGroupByUserId")
     public List<Transactions> findNonGroupByUserId(@RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
         for (UserGroup userGroup : userGroupRepository.findByGroupIdAndUserId(-1, userId)) {
