@@ -2,8 +2,10 @@ package demosplitwise.demo.controllers;
 
 
 import demosplitwise.demo.domain.User;
+import demosplitwise.demo.domain.UserTransaction;
 import demosplitwise.demo.repositories.UserGroupRepository;
 import demosplitwise.demo.repositories.UserRepository;
+import demosplitwise.demo.repositories.UserTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,19 +19,14 @@ public class UserController {
     UserRepository repository;
 
     @Autowired
-    UserGroupRepository userGroupRepository;
+    UserTransactionRepository userTransactionRepository;
 
 
-    @RequestMapping(value ="/user/save", method= RequestMethod.POST)
-    public void save( @RequestBody User user){
-        repository.save(user);
-    }
+    @RequestMapping(value ="/user", method= RequestMethod.POST)
+    public void save(@RequestBody User user){repository.save(user);}
 
-    @RequestMapping(value = "/user/update", method= RequestMethod.PUT)
-    public String update(@RequestBody User user){
-        repository.save(user);
-        return "done";
-    }
+    @RequestMapping(value = "/user", method= RequestMethod.PUT)
+    public void update(@RequestBody User user){repository.save(user);}
 
     @RequestMapping(value = "/user/findAll", method= RequestMethod.GET)
     public List<User> findAll(){
@@ -46,4 +43,33 @@ public class UserController {
     public User findById(@RequestParam("id") long id){
         return repository.findOne(id);
     }
+
+    @RequestMapping(value = "/user/groupExpense",method = RequestMethod.GET)
+    public double groupExpense(@RequestParam("userId")long userId,
+                            @RequestParam("groupId")long groupId){
+        double debt = 0;
+        for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(groupId,userId)){
+            debt = debt + userTransaction.getPartialAmount();
+        }
+        return debt;
+    }
+
+    @RequestMapping(value = "/user/nonGroupExpense",method = RequestMethod.GET)
+    public double nonGroupExpense(@RequestParam("userId")long userId){
+        double debt = 0;
+        for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(-1,userId)){
+            debt = debt + userTransaction.getPartialAmount();
+        }
+        return debt;
+    }
+
+    @RequestMapping(value = "/user/totalExpense",method = RequestMethod.GET)
+    public double totalExpense(@RequestParam("userId")long userId){
+        double debt =0;
+        for(UserTransaction userTransaction:userTransactionRepository.findByUserId(userId)){
+            debt = debt + userTransaction.getPartialAmount();
+        }
+        return debt;
+    }
+    
 }
