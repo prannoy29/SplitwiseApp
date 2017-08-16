@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface TransRepository extends CrudRepository<Transactions,Long>{
     List<Transactions> findByGroupId(long id);
+   // List<Transactions> findByGroupIdAndTransID(long groupId, long transID);
 }

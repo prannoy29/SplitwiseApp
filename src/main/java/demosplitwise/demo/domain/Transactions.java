@@ -82,13 +82,13 @@ public class Transactions implements Serializable{
      * Field to store amount transferred in a transaction
      */
     @Column(name = "Transaction_Amount")
-    int amount;
+    double amount;
 
     /**
      * Setter to set the amount in a transaction
      * @param amount involved in a transaction
      */
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -96,7 +96,7 @@ public class Transactions implements Serializable{
      * Getter to get the amount
      * @return amount
      */
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -167,9 +167,10 @@ public class Transactions implements Serializable{
      * @param borrower list of all the borrower user ids
      * @param mop mode of payment of the transaction
      */
-    public Transactions(String description, int amount,List<Long> lender, List<Long> borrower,String mop){
+    public Transactions(long groupId, String description, double amount,List<Long> lender, List<Long> borrower,String mop){
 
-      this.groupId = groupId;
+
+        this.groupId = groupId;
         this.description = description;
         this.amount = amount;
         this.mop = mop;

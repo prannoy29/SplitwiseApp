@@ -34,12 +34,12 @@ public class TransactionController {
         newList.addAll(transactions.lender);
         newList.addAll(transactions.borrower);
         for (long id : transactions.borrower) {
-            userTransactionRepository.save(new UserTransaction(transactions.getTransID(), id,
+            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(),transactions.getTransID(), id,
                     -1 * (transactions.getAmount() / newList.size())));
         }
 
         for (long id : transactions.lender) {
-            userTransactionRepository.save(new UserTransaction(transactions.getTransID(), id,
+            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(),transactions.getTransID(), id,
                     (transactions.getAmount() / transactions.lender.size()) -
                             (transactions.getAmount() / newList.size())));
         }
@@ -52,14 +52,24 @@ public class TransactionController {
         newList.addAll(transactions.lender);
         newList.addAll(transactions.borrower);
         for (long id : transactions.borrower) {
-            userTransactionRepository.save(new UserTransaction(transactions.getTransID(), id,
-                    -1 * (transactions.getAmount() / newList.size())));
+            UserTransaction userTransaction = userTransactionRepository.findByUserIdAndTransID(id,transactions.getTransID());
+            userTransaction.setPartialAmount(-1 * (transactions.getAmount() / newList.size()));
+            userTransaction.setUserId(id);
+            userTransaction.setTransID(transactions.getTransID());
+            userTransaction.setGroupId(transactions.getGroupId());
+
+            userTransactionRepository.save(userTransaction);
         }
 
         for (long id : transactions.lender) {
-            userTransactionRepository.save(new UserTransaction(transactions.getTransID(), id,
-                    (transactions.getAmount() / transactions.lender.size()) -
-                            (transactions.getAmount() / newList.size())));
+            UserTransaction userTransaction = userTransactionRepository.findByUserIdAndTransID(id,transactions.getTransID());
+            userTransaction.setPartialAmount((transactions.getAmount() / transactions.lender.size())-
+                    (transactions.getAmount() / newList.size()));
+            userTransaction.setUserId(id);
+            userTransaction.setTransID(transactions.getTransID());
+            userTransaction.setGroupId(transactions.getGroupId());
+
+            userTransactionRepository.save(userTransaction);
         }
     }
 
@@ -102,8 +112,8 @@ public class TransactionController {
     public List<Transactions> findGroupByUserId(@RequestParam("groupId") long groupId,
                                                 @RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
-        for (UserGroup userGroup : userGroupRepository.findByGroupIdAndUserId(groupId, userId)) {
-            mylist.add(transRepository.findOne(userGroup.getTransId()));
+        for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(groupId,userId)) {
+            mylist.add(transRepository.findOne(userTransaction.getTransID()));
         }
         return mylist;
     }
@@ -111,8 +121,8 @@ public class TransactionController {
     @RequestMapping("/transaction/findNonGroupByUserId")
     public List<Transactions> findNonGroupByUserId(@RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
-        for (UserGroup userGroup : userGroupRepository.findByGroupIdAndUserId(-1, userId)) {
-            mylist.add(transRepository.findOne(userGroup.getTransId()));
+        for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(-1,userId)) {
+            mylist.add(transRepository.findOne(userTransaction.getTransID()));
         }
         return mylist;
     }

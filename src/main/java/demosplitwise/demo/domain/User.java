@@ -9,12 +9,12 @@ import java.io.Serializable;
  * age, debt
  */
 @Entity
-@Table(name="splitwiseUsers")
+@Table(name="splitwiseusers")
 public class User implements Serializable{
-    private static final long serialVersionUID = -3009157732242249406L;
+    //private static final long serialVersionUID = -3009157732242249406L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="UserId", unique = true)
+    @Column(name="userId")
     private long userId;
 
     /**
@@ -33,7 +33,7 @@ public class User implements Serializable{
         this.userId = userId;
     }
 
-    @Column(name="userName",unique = true)
+    @Column(name="userName")
     private String name;
 
     /**
@@ -51,6 +51,9 @@ public class User implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+
+
 
     @Column(name="emailId")
     private String emailId;
@@ -110,13 +113,13 @@ public class User implements Serializable{
     }
 
     @Column(name="debt")
-    private int debt;
+    private double debt;
 
     /**
      * getter debt
      * @return int debt
      */
-    public int getDebt() {
+    public double getDebt() {
         return debt;
     }
 
@@ -142,6 +145,7 @@ public class User implements Serializable{
         this.emailId=emailId;
         this.phoneNumber=phone_number;
         this.age=age;
+        this.debt= 0;
     }
 
     /**
