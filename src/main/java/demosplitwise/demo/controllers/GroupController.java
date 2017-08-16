@@ -8,7 +8,9 @@ import demosplitwise.demo.repositories.UserTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -56,6 +58,19 @@ public class GroupController {
         }
 
         return mylist;
+    }
+
+    @RequestMapping(value = "/group/addUsers",method = RequestMethod.POST)
+    public void addUsers(Long groupId, Long[] userId){
+        Date today = new Date();
+        for (long i: userId) {
+            UserGroup x = new UserGroup(groupId,i,today,0);
+            userGroupRepository.save(x);
+        }
+        Group group = findById(groupId);
+        int members = group.getTotalMembers();
+        group.setTotalMembers(members+userId.length);
+        update(group);
     }
 
 
