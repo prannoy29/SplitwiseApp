@@ -14,6 +14,10 @@ public class UserTransaction {
     @Column(name="id")
     private long id;
 
+    public long getId() {
+        return id;
+    }
+
     public long getTransID() {
         return transID;
     }
@@ -30,11 +34,11 @@ public class UserTransaction {
         this.userId = userId;
     }
 
-    public int getPartialAmount() {
+    public double getPartialAmount() {
         return partialAmount;
     }
 
-    public void setPartialAmount(int partialAmount) {
+    public void setPartialAmount(double partialAmount) {
         this.partialAmount = partialAmount;
     }
     @Column(name = "transId")
@@ -43,13 +47,26 @@ public class UserTransaction {
     @Column(name="userId")
     private long userId;
 
+    @Column(name="groupId",nullable = false)
+    private Long groupId;
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
     @Column(name = "partial_amount")
-    int partialAmount;
+    double partialAmount;
 
     protected UserTransaction(){
     }
 
-    public UserTransaction (long transID,long userId,int partialAmount){
+    public UserTransaction (long groupId,long transID,long userId,double partialAmount){
+
+        this.groupId = groupId;
         this.transID=transID;
         this.userId = userId;
         this.partialAmount = partialAmount;
