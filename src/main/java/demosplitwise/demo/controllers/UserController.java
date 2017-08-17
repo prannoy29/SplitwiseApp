@@ -2,6 +2,7 @@ package demosplitwise.demo.controllers;
 
 
 import demosplitwise.demo.domain.User;
+import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.domain.UserTransaction;
 import demosplitwise.demo.repositories.UserGroupRepository;
 import demosplitwise.demo.repositories.UserRepository;
@@ -20,6 +21,9 @@ public class UserController {
 
     @Autowired
     UserTransactionRepository userTransactionRepository;
+
+    @Autowired
+    UserGroupRepository userGroupRepository;
 
 
     @RequestMapping(value ="/user", method= RequestMethod.POST)
@@ -51,6 +55,9 @@ public class UserController {
         for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(groupId,userId)){
             debt = debt + userTransaction.getPartialAmount();
         }
+        UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(groupId,userId);
+        userGroup.setDebt(debt);
+        userGroupRepository.save(userGroup);
         return debt;
     }
 
@@ -69,7 +76,11 @@ public class UserController {
         for(UserTransaction userTransaction:userTransactionRepository.findByUserId(userId)){
             debt = debt + userTransaction.getPartialAmount();
         }
+        User user = findById(userId);
+        user.setDebt(debt);
+        repository.save(user);
         return debt;
+
     }
 
     @RequestMapping(value = "/user/username", method = RequestMethod.GET)
