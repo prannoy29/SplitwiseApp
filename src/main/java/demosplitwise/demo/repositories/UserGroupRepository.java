@@ -11,5 +11,5 @@ import java.util.List;
 public interface UserGroupRepository extends CrudRepository<UserGroup,Long> {
     List<UserGroup> findByUserId(long id);
     List<UserGroup> findByGroupId(long id);
-    List<UserGroup> findByGroupIdAndUserId(long groupId, long userId);
+    UserGroup findByGroupIdAndUserId(long groupId, long userId);
 }
