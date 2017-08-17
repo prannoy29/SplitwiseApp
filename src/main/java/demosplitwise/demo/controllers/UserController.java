@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/username", method = RequestMethod.GET)
-    public List<String> findbymatch(@RequestParam("s") String s){
+    public List<User> findbymatch(@RequestParam("s") String s){
         return repository.matchedNames(s);
     }
 }
