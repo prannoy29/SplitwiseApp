@@ -33,7 +33,7 @@ public class User implements Serializable{
         this.userId = userId;
     }
 
-    @Column(name="userName")
+    @Column(name="userName", unique = true)
     private String name;
 
     /**
@@ -55,7 +55,7 @@ public class User implements Serializable{
 
 
 
-    @Column(name="emailId")
+    @Column(name="emailId", unique = true)
     private String emailId;
 
     /**
@@ -127,8 +127,27 @@ public class User implements Serializable{
      * setter debt
      * @param debt int debt
      */
-    public void setDebt(int debt) {
+    public void setDebt(double debt) {
         this.debt = debt;
+    }
+
+    @Column(name="displaypicture")
+    private String url;
+
+    /**
+     * Getter for url of the user image
+     * @return url of the image
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Setter for url of the user image
+     * @param url - String of the url
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     protected User(){}
@@ -140,12 +159,13 @@ public class User implements Serializable{
      * @param phone_number
      * @param age
      */
-    public User(String name,String emailId,String phone_number,int age){
+    public User(String name,String emailId,String phone_number,int age,String url){
         this.name=name;
         this.emailId=emailId;
         this.phoneNumber=phone_number;
         this.age=age;
         this.debt= 0;
+        this.url = url;
     }
 
     /**
