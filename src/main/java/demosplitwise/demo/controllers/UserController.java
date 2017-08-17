@@ -71,4 +71,11 @@ public class UserController {
         }
         return debt;
     }
+
+    @RequestMapping(value = "/user/username", method = RequestMethod.GET)
+    public List<User> findbymatch(@RequestParam("s") String s){
+        return repository.matchedNames(s);
+    }
+
+
 }

@@ -61,7 +61,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/addUsers",method = RequestMethod.POST)
-    public void addUsers(Long groupId, Long[] userId){
+    public void addUsers(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long[] userId){
         Date today = new Date();
         for (long i: userId) {
             UserGroup x = new UserGroup(groupId,i,today,0);
