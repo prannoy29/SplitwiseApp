@@ -1,9 +1,11 @@
 package demosplitwise.demo.controllers;
 
 import demosplitwise.demo.domain.Group;
+import demosplitwise.demo.domain.User;
 import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.repositories.GroupRepository;
 import demosplitwise.demo.repositories.UserGroupRepository;
+import demosplitwise.demo.repositories.UserRepository;
 import demosplitwise.demo.repositories.UserTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +28,9 @@ public class GroupController {
 
     @Autowired
     UserTransactionRepository userTransactionRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping(value = "/group/save", method = RequestMethod.POST)
     public void register(@RequestBody Group group){
@@ -62,6 +67,14 @@ public class GroupController {
         return mylist;
     }
 
+    @RequestMapping(value = "/group/findAllUsersByGroupId",method = RequestMethod.GET)
+    public List<User> findAllUsersByGroupId(@RequestParam("groupId")long groupId){
+        List<User> mylist = new ArrayList<>();
+        for (UserGroup userGroup: userGroupRepository.findByGroupId(groupId)){
+            mylist.add(userRepository.findOne(userGroup.getUid()));
+        }
+        return mylist;
+    }
     @RequestMapping(value = "/group/addUsers",method = RequestMethod.POST)
     public void addUsers(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long[] userId){
         Date today = new Date();
