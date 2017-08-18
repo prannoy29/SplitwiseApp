@@ -128,4 +128,10 @@ public class GroupController {
         }
         return mylist;
     }
+
+    @RequestMapping(value="/group/settleUp",method=RequestMethod.GET)
+    public void settleUp(@RequestParam("groupId")long groupId){
+
+    }
+
 }
