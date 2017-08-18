@@ -76,7 +76,24 @@ public class Group implements Serializable {
         this.createdBy = createdBy;
     }
 
+    @Column(name="displaypicture")
+    private String url;
 
+    /**
+     * Getter for url of the Group image
+     * @return url of the image
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Setter for url of the Group image
+     * @param url - String of the url
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     protected Group() {
     }

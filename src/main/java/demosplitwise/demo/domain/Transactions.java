@@ -137,6 +137,25 @@ public class Transactions implements Serializable{
     @Column(name = "Date_of_Modification")
     private Date dom = new Date();
 
+    @Column(name="displaypicture")
+    private String url;
+
+    /**
+     * Getter for url of the transaction image
+     * @return url of the image
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Setter for url of the transaction image
+     * @param url - String of the url
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @PreUpdate
     public void setLastUpdate() { this.dom = new Date();}
 
