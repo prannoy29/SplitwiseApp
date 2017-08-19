@@ -12,5 +12,5 @@ public interface UserGroupRepository extends CrudRepository<UserGroup,Long> {
     List<UserGroup> findByUserId(long id);
     List<UserGroup> findByGroupId(long id);
     UserGroup findByGroupIdAndUserId(long groupId, long userId);
-    List<UserGroup> findByOrOrderByDebt();
+    //List<UserGroup> findByOrOrderByDebt();
 }
