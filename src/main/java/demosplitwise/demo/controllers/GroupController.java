@@ -1,11 +1,11 @@
 package demosplitwise.demo.controllers;
 
 import demosplitwise.demo.domain.Group;
+import demosplitwise.demo.domain.User;
 import demosplitwise.demo.domain.UserGroup;
-import demosplitwise.demo.repositories.GroupRepository;
-import demosplitwise.demo.repositories.UserGroupRepository;
-import demosplitwise.demo.repositories.UserTransactionRepository;
+import demosplitwise.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
@@ -20,10 +20,14 @@ public class GroupController {
     GroupRepository groupRepo;
 
     @Autowired
+   // @Qualifier("userGroupRepository")
     UserGroupRepository userGroupRepository;
 
     @Autowired
     UserTransactionRepository userTransactionRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping(value = "/group/save", method = RequestMethod.POST)
     public void register(@RequestBody Group group){
@@ -60,6 +64,14 @@ public class GroupController {
         return mylist;
     }
 
+    @RequestMapping(value = "/group/findAllUsersByGroupId",method = RequestMethod.GET)
+    public List<User> findAllUsersByGroupId(@RequestParam("groupId")long groupId){
+        List<User> mylist = new ArrayList<>();
+        for (UserGroup userGroup: userGroupRepository.findByGroupId(groupId)){
+            mylist.add(userRepository.findOne(userGroup.getUid()));
+        }
+        return mylist;
+    }
     @RequestMapping(value = "/group/addUsers",method = RequestMethod.POST)
     public void addUsers(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long[] userId){
         Date today = new Date();
@@ -73,5 +85,54 @@ public class GroupController {
         update(group);
     }
 
+    @RequestMapping(value="/group/showSplits",method = RequestMethod.GET)
+    public List<String> showSplits(@RequestParam("groupId")long groupId){
+        List<String> mylist = new ArrayList<>();
+        List<UserGroup>userGroupList = userGroupRepository.findByGroupIdOrderByDebt(groupId);
+        int sizeOfList = userGroupList.size();
+        while(userGroupList!=null){
+           if(Math.abs(userGroupList.get(0).getDebt())> Math.abs(userGroupList.get(sizeOfList-1).getDebt())) {
+               double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
+               userGroupList.get(0).setDebt(temp);
+               userGroupList.get(sizeOfList - 1).setDebt(0);
+               mylist.add(String.format("%d owes %d Rupees %f",
+                       userGroupList.get(sizeOfList - 1).getUid(),
+                       userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+               userGroupList.remove(sizeOfList - 1);
+               sizeOfList = sizeOfList - 1;
+           }
+           else if (Math.abs(userGroupList.get(0).getDebt())==Math.abs(userGroupList.get(sizeOfList-1).getDebt())){
+               mylist.add(String.format("%d owes %d Rupees %f",
+                       userGroupList.get(sizeOfList - 1).getUid(),
+                       userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+               userGroupList.remove(sizeOfList - 1);
+               userGroupList.remove(0);
+               sizeOfList = sizeOfList-1;
+           }
+
+           else
+            {
+                double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
+                userGroupList.get(0).setDebt(0);
+                userGroupList.get(sizeOfList - 1).setDebt(temp);
+                mylist.add(String.format("%d owes %d Rupees %f",
+                        userGroupList.get(sizeOfList - 1).getUid(),
+                        userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+                userGroupList.remove( 0);
+                sizeOfList = sizeOfList - 1;
+
+            }
+        }
+        return mylist;
+    }
+
+    @RequestMapping(value="/group/settleUp",method=RequestMethod.GET)
+    public void settleUp(@RequestParam("groupId")long groupId){
+        for(UserGroup userGroup:userGroupRepository.findByGroupId(groupId)){
+            userRepository.findOne(userGroup.getUid()).setDebt(userRepository.findOne(userGroup.getUid()).getDebt()-
+            userGroup.getDebt());
+            userGroup.setDebt(0);
+        }
+    }
 
 }
