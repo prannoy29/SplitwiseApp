@@ -1,7 +1,6 @@
 package demosplitwise.demo.controllers;
 
 import demosplitwise.demo.domain.Group;
-import demosplitwise.demo.domain.SettleUp;
 import demosplitwise.demo.domain.User;
 import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.repositories.*;
@@ -29,9 +28,6 @@ public class GroupController {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    SettleUpRepository settleUpRepository;
 
     @RequestMapping(value = "/group/save", method = RequestMethod.POST)
     public void register(@RequestBody Group group){
