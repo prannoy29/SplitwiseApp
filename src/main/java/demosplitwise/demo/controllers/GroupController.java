@@ -1,12 +1,10 @@
 package demosplitwise.demo.controllers;
 
 import demosplitwise.demo.domain.Group;
+import demosplitwise.demo.domain.SettleUp;
 import demosplitwise.demo.domain.User;
 import demosplitwise.demo.domain.UserGroup;
-import demosplitwise.demo.repositories.GroupRepository;
-import demosplitwise.demo.repositories.UserGroupRepository;
-import demosplitwise.demo.repositories.UserRepository;
-import demosplitwise.demo.repositories.UserTransactionRepository;
+import demosplitwise.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,9 @@ public class GroupController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    SettleUpRepository settleUpRepository;
 
     @RequestMapping(value = "/group/save", method = RequestMethod.POST)
     public void register(@RequestBody Group group){
@@ -131,7 +132,11 @@ public class GroupController {
 
     @RequestMapping(value="/group/settleUp",method=RequestMethod.GET)
     public void settleUp(@RequestParam("groupId")long groupId){
-
+        for(UserGroup userGroup:userGroupRepository.findByGroupId(groupId)){
+            userRepository.findOne(userGroup.getUid()).setDebt(userRepository.findOne(userGroup.getUid()).getDebt()-
+            userGroup.getDebt());
+            userGroup.setDebt(0);
+        }
     }
 
 }
