@@ -8,6 +8,7 @@ import demosplitwise.demo.repositories.UserGroupRepository;
 import demosplitwise.demo.repositories.UserRepository;
 import demosplitwise.demo.repositories.UserTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class UserController {
 
 
     @RequestMapping(value ="/user", method= RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK, reason = "My status changed")
     public void save(@RequestBody User user){repository.save(user);}
 
     @RequestMapping(value = "/user", method= RequestMethod.PUT)
@@ -84,7 +86,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/username", method = RequestMethod.GET)
-    public List<User> findbymatch(@RequestParam("s") String s){
+    public List<String> findbymatch(@RequestParam("s") String s){
         return repository.matchedNames(s);
     }
 
