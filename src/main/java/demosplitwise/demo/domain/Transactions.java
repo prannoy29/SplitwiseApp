@@ -138,14 +138,14 @@ public class Transactions implements Serializable{
     private Date dom = new Date();
 
     @Column(name="displaypicture")
-    private String url;
+    private String imgUrl;
 
     /**
      * Getter for url of the transaction image
      * @return url of the image
      */
     public String getUrl() {
-        return url;
+        return imgUrl;
     }
 
     /**
@@ -153,7 +153,7 @@ public class Transactions implements Serializable{
      * @param url - String of the url
      */
     public void setUrl(String url) {
-        this.url = url;
+        this.imgUrl = url;
     }
 
     @PreUpdate

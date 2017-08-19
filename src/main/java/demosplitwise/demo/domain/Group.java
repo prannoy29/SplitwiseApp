@@ -77,14 +77,14 @@ public class Group implements Serializable {
     }
 
     @Column(name="displaypicture")
-    private String url;
+    private String groupUrl;
 
     /**
      * Getter for url of the Group image
      * @return url of the image
      */
     public String getUrl() {
-        return url;
+        return groupUrl;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Group implements Serializable {
      * @param url - String of the url
      */
     public void setUrl(String url) {
-        this.url = url;
+        this.groupUrl = url;
     }
 
     protected Group() {
