@@ -14,7 +14,11 @@ public class SettleUp {
     @Column(name="groupId")
     private long groupId;
 
-    @Column(name = "UserIdSelf")
+    public long getUserIdCreditor() {
+        return userIdCreditor;
+    }
+
+    @Column(name = "UserCreditor")
     private long userIdCreditor;
 
     @Column(name = "UserIdDebtor")
