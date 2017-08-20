@@ -138,4 +138,13 @@ public class GroupController {
         }
     }
 
+    @RequestMapping(value = "/group/groupName",method = RequestMethod.GET)
+    public List<String> findByMatch(@RequestParam("s") String s){
+        List<String> mylist = new ArrayList<>();
+        for (Group group : groupRepo.matchedNames(s)){
+            mylist.add(group.getGroupName());
+        }
+        return mylist;
+    }
+
 }
