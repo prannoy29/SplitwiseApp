@@ -77,5 +77,6 @@ public class UserController {
             mylist.add(user.getName());
         }
         return mylist;
+
     }
     }
