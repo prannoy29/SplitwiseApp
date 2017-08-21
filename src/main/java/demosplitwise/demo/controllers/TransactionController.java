@@ -1,7 +1,11 @@
 package demosplitwise.demo.controllers;
 
+
+import demosplitwise.demo.domain.User;
+import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.domain.UserTransaction;
 import demosplitwise.demo.repositories.UserGroupRepository;
+import demosplitwise.demo.repositories.UserRepository;
 import demosplitwise.demo.repositories.UserTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +25,9 @@ public class TransactionController {
     UserTransactionRepository userTransactionRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     UserGroupRepository userGroupRepository;
 
 
@@ -31,14 +38,43 @@ public class TransactionController {
         newList.addAll(transactions.lender);
         newList.addAll(transactions.borrower);
         for (long id : transactions.borrower) {
-            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(),transactions.getTransID(), id,
+            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(), transactions.getTransID(), id,
                     -1 * (transactions.getAmount() / newList.size())));
+            if (transactions.getGroupId() == -1) {
+                User userTemp = userRepository.findOne(id);
+                userTemp.setDebt(userTemp.getDebt() - (transactions.getAmount() / newList.size()));
+                userRepository.save(userTemp);
+            } else {
+                User userTemp = userRepository.findOne(id);
+                UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(transactions.getGroupId(), id);
+                userTemp.setDebt(userTemp.getDebt() - (transactions.getAmount() / newList.size()));
+                userGroup.setDebt(userGroup.getDebt() - (transactions.getAmount() / newList.size()));
+                userRepository.save(userTemp);
+                userGroupRepository.save(userGroup);
+            }
         }
 
         for (long id : transactions.lender) {
-            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(),transactions.getTransID(), id,
+            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(), transactions.getTransID(), id,
                     (transactions.getAmount() / transactions.lender.size()) -
                             (transactions.getAmount() / newList.size())));
+
+            if (transactions.getGroupId() == -1) {
+                User userTemp = userRepository.findOne(id);
+                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                        (transactions.getAmount() / newList.size())));
+                userRepository.save(userTemp);
+            } else {
+                User userTemp = userRepository.findOne(id);
+                UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(transactions.getGroupId(), id);
+                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                        (transactions.getAmount() / newList.size())));
+                userGroup.setDebt(userGroup.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                        (transactions.getAmount() / newList.size())));
+                userRepository.save(userTemp);
+                userGroupRepository.save(userGroup);
+
+            }
         }
     }
 
@@ -56,6 +92,20 @@ public class TransactionController {
             userTransaction.setGroupId(transactions.getGroupId());
 
             userTransactionRepository.save(userTransaction);
+            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(), transactions.getTransID(), id,
+                    -1 * (transactions.getAmount() / newList.size())));
+            if (transactions.getGroupId() == -1) {
+                User userTemp = userRepository.findOne(id);
+                userTemp.setDebt(userTemp.getDebt() - (transactions.getAmount() / newList.size()));
+                userRepository.save(userTemp);
+            } else {
+                User userTemp = userRepository.findOne(id);
+                UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(transactions.getGroupId(), id);
+                userTemp.setDebt(userTemp.getDebt() - (transactions.getAmount() / newList.size()));
+                userGroup.setDebt(userGroup.getDebt() - (transactions.getAmount() / newList.size()));
+                userRepository.save(userTemp);
+                userGroupRepository.save(userGroup);
+            }
         }
 
         for (long id : transactions.lender) {
@@ -67,6 +117,23 @@ public class TransactionController {
             userTransaction.setGroupId(transactions.getGroupId());
 
             userTransactionRepository.save(userTransaction);
+
+            if (transactions.getGroupId() == -1) {
+                User userTemp = userRepository.findOne(id);
+                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                        (transactions.getAmount() / newList.size())));
+                userRepository.save(userTemp);
+            } else {
+                User userTemp = userRepository.findOne(id);
+                UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(transactions.getGroupId(), id);
+                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                        (transactions.getAmount() / newList.size())));
+                userGroup.setDebt(userGroup.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                        (transactions.getAmount() / newList.size())));
+                userRepository.save(userTemp);
+                userGroupRepository.save(userGroup);
+
+            }
         }
     }
 

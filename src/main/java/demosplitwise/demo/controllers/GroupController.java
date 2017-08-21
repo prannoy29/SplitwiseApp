@@ -129,10 +129,22 @@ public class GroupController {
     @RequestMapping(value="/group/settleUp",method=RequestMethod.GET)
     public void settleUp(@RequestParam("groupId")long groupId){
         for(UserGroup userGroup:userGroupRepository.findByGroupId(groupId)){
-            userRepository.findOne(userGroup.getUid()).setDebt(userRepository.findOne(userGroup.getUid()).getDebt()-
-            userGroup.getDebt());
+            User userTemp = userRepository.findOne(userGroup.getUid());
+            userTemp.setDebt(userRepository.findOne(userGroup.getUid()).getDebt()-
+                    userGroup.getDebt());
+            userRepository.save(userTemp);
             userGroup.setDebt(0);
+            userGroupRepository.save(userGroup);
         }
+    }
+
+    @RequestMapping(value = "/group/groupName",method = RequestMethod.GET)
+    public List<String> findByMatch(@RequestParam("s") String s){
+        List<String> mylist = new ArrayList<>();
+        for (Group group : groupRepo.matchedNames(s)){
+            mylist.add(group.getGroupName());
+        }
+        return mylist;
     }
 
 }

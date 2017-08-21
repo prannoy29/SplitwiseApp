@@ -53,14 +53,7 @@ public class UserController {
     @RequestMapping(value = "/user/groupExpense",method = RequestMethod.GET)
     public double groupExpense(@RequestParam("userId")long userId,
                             @RequestParam("groupId")long groupId){
-        double debt = 0;
-        for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(groupId,userId)){
-            debt = debt + userTransaction.getPartialAmount();
-        }
-        UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(groupId,userId);
-        userGroup.setDebt(debt);
-        userGroupRepository.save(userGroup);
-        return debt;
+       return userGroupRepository.findByGroupIdAndUserId(groupId,userId).getDebt();
     }
 
     @RequestMapping(value = "/user/nonGroupExpense",method = RequestMethod.GET)
@@ -74,20 +67,16 @@ public class UserController {
 
     @RequestMapping(value = "/user/totalExpense",method = RequestMethod.GET)
     public double totalExpense(@RequestParam("userId")long userId){
-        double debt =0;
-        for(UserTransaction userTransaction:userTransactionRepository.findByUserId(userId)){
-            debt = debt + userTransaction.getPartialAmount();
+        return repository.findOne(userId).getDebt();
+    }
+
+    @RequestMapping(value = "/user/userName", method = RequestMethod.GET)
+    public List<String> findByMatch(@RequestParam("s") String s) {
+        List<String> mylist = new ArrayList<>();
+        for (User user : repository.matchedNames(s)){
+            mylist.add(user.getName());
         }
-        User user = findById(userId);
-        user.setDebt(debt);
-        repository.save(user);
-        return debt;
+        return mylist;
 
     }
-
-    @RequestMapping(value = "/user/username", method = RequestMethod.GET)
-    public List<String> findbymatch(@RequestParam("s") String s){
-        return repository.matchedNames(s);
     }
-
-}

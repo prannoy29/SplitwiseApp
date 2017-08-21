@@ -1,6 +1,9 @@
 package demosplitwise.demo.domain;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -127,8 +130,8 @@ public class Transactions implements Serializable{
     /**
      * Field to contain the date on which transaction is made
      */
-    @Column(name = "Date_of_Transaction",updatable = false)
-    private Date dot= new Date();
+    @Column(name = "Date_of_Transaction")
+    private Date dot;
 
 
     /**
@@ -218,7 +221,7 @@ public class Transactions implements Serializable{
      * @param borrower list of all the borrower user ids
      * @param mop mode of payment of the transaction
      */
-    public Transactions(long groupId, String description, double amount,List<Long> lender, List<Long> borrower,String mop){
+    public Transactions(long groupId, String description, double amount,List<Long> lender, List<Long> borrower,String mop,String dot){
 
 
         this.groupId = groupId;
@@ -227,6 +230,14 @@ public class Transactions implements Serializable{
         this.mop = mop;
         this.lender = lender;
         this.borrower = borrower;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateOfTrans;
+        try {
+            dateOfTrans = df.parse(dot);
+           this.dot = dateOfTrans;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
