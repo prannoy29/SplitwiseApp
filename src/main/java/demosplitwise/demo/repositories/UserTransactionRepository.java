@@ -11,4 +11,5 @@ public interface UserTransactionRepository extends CrudRepository<UserTransactio
     List<UserTransaction> findByGroupIdAndUserId(long groupId,long transId);
     List<UserTransaction> findByTransID(long id);
     UserTransaction findByUserIdAndTransID(long userId,long transid);
+    List<UserTransaction> findByTransID(long transid);
 }
