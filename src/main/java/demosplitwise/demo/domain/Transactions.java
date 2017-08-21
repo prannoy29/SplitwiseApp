@@ -165,12 +165,44 @@ public class Transactions implements Serializable{
     @Transient
     public List<Long> lender = new ArrayList<Long>();
 
+
+    /**
+     * Getter for list of lenders
+     * @return lenders list in long
+     */
+    public List<Long> getLender() {
+        return lender;
+    }
+
+    /**
+     * Getter for list of lenders
+     * @param lender list in long
+     */
+    public void setLender(List<Long> lender) {
+        this.lender = lender;
+    }
+
     /**
      * list users who borrowed the money in the transaction
      */
     @Transient
     public List<Long> borrower = new ArrayList<Long>();
 
+    /**
+     * Getter for list of borrowers
+     * @return borrowers list in long
+     */
+    public List<Long> getBorrower() {
+        return borrower;
+    }
+
+    /**
+     * Setter for list of borrowers
+     * @param borrower list in long
+     */
+    public void setBorrower(List<Long> borrower) {
+        this.borrower = borrower;
+    }
 
     /**
      * protected constructor used by the Spring jpa
