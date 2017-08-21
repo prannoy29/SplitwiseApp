@@ -1,12 +1,12 @@
 package demosplitwise.demo.controllers;
 
+
 import demosplitwise.demo.domain.User;
 import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.domain.UserTransaction;
 import demosplitwise.demo.repositories.UserGroupRepository;
 import demosplitwise.demo.repositories.UserRepository;
 import demosplitwise.demo.repositories.UserTransactionRepository;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,6 @@ import demosplitwise.demo.domain.Transactions;
 import demosplitwise.demo.repositories.TransRepository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -143,6 +142,8 @@ public class TransactionController {
     public List<Transactions> findAll() {
         List<Transactions> mylist = new ArrayList();
         for (Transactions trans : transRepository.findAll()) {
+            trans.setLender(allLenders(trans.getTransID()));
+            trans.setBorrower(allBorrowers(trans.getTransID()));
             mylist.add(trans);
         }
 
@@ -151,13 +152,18 @@ public class TransactionController {
 
     @RequestMapping("/transaction/findById")
     public Transactions findById(@RequestParam("id") long id) {
-        return transRepository.findOne(id);
+        Transactions transaction = transRepository.findOne(id);
+        transaction.setLender(allLenders(id));
+        transaction.setBorrower(allBorrowers(id));
+        return transaction;
     }
 
     @RequestMapping("/transaction/findAllByGroupId")
     public List<Transactions> findAllByGroupId(@RequestParam("id") long id) {
         List<Transactions> mylist = new ArrayList();
         for (Transactions transactions : transRepository.findByGroupId(id)) {
+            transactions.setLender(allLenders(transactions.getTransID()));
+            transactions.setBorrower(allBorrowers(transactions.getTransID()));
             mylist.add(transactions);
         }
 
@@ -168,7 +174,10 @@ public class TransactionController {
     public List<Transactions> findAllByUserId(@RequestParam("id") long id) {
         List<Transactions> mylist = new ArrayList();
         for (UserTransaction userTransaction : userTransactionRepository.findByUserId(id)) {
-            mylist.add(transRepository.findOne(userTransaction.getTransID()));
+            Transactions transaction = transRepository.findOne(userTransaction.getTransID());
+            transaction.setLender(allLenders(transaction.getTransID()));
+            transaction.setBorrower(allBorrowers(transaction.getTransID()));
+            mylist.add(transaction);
         }
         return mylist;
     }
@@ -178,7 +187,10 @@ public class TransactionController {
                                                 @RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
         for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(groupId,userId)) {
-            mylist.add(transRepository.findOne(userTransaction.getTransID()));
+            Transactions transaction = transRepository.findOne(userTransaction.getTransID());
+            transaction.setLender(allLenders(transaction.getTransID()));
+            transaction.setBorrower(allBorrowers(transaction.getTransID()));
+            mylist.add(transaction);
         }
         return mylist;
     }
@@ -187,9 +199,32 @@ public class TransactionController {
     public List<Transactions> findNonGroupByUserId(@RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
         for (UserTransaction userTransaction : userTransactionRepository.findByGroupIdAndUserId(-1,userId)) {
-            mylist.add(transRepository.findOne(userTransaction.getTransID()));
+            Transactions transaction = transRepository.findOne(userTransaction.getTransID());
+            transaction.setLender(allLenders(transaction.getTransID()));
+            transaction.setBorrower(allBorrowers(transaction.getTransID()));
+            mylist.add(transaction);
         }
         return mylist;
+    }
+
+    public List<Long> allLenders(long transid){
+        List<Long> lenders = new ArrayList<Long>();
+        List<UserTransaction> userTransactions = userTransactionRepository.findByTransID(transid);
+        for (UserTransaction userTransaction : userTransactions) {
+            if(userTransaction.getPartialAmount()>0)
+                lenders.add(userTransaction.getUserId());
+        }
+        return lenders;
+    }
+
+    public List<Long> allBorrowers (long transid){
+        List<Long> borrowers = new ArrayList<Long>();
+        List<UserTransaction> userTransactions = userTransactionRepository.findByTransID(transid);
+        for (UserTransaction userTransaction : userTransactions) {
+            if(userTransaction.getPartialAmount()<0)
+                borrowers.add(userTransaction.getUserId());
+        }
+        return borrowers;
     }
 }
 
