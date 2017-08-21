@@ -160,12 +160,12 @@ public class User implements Serializable{
      * @param age
      */
     public User(String name,String emailId,String phone_number,int age,String url){
-        this.name=name;
-        this.emailId=emailId;
-        this.phoneNumber=phone_number;
-        this.age=age;
-        this.debt= 0;
-        this.url = url;
+            this.name=name;
+            this.emailId=emailId;
+            this.phoneNumber=phone_number;
+            this.age=age;
+            this.debt= 0;
+            this.url = url;
     }
 
     /**

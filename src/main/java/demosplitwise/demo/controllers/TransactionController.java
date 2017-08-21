@@ -61,15 +61,15 @@ public class TransactionController {
 
             if (transactions.getGroupId() == -1) {
                 User userTemp = userRepository.findOne(id);
-                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                userTemp.setDebt(userTemp.getDebt() + ((transactions.getAmount() / transactions.lender.size()) -
                         (transactions.getAmount() / newList.size())));
                 userRepository.save(userTemp);
             } else {
                 User userTemp = userRepository.findOne(id);
                 UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(transactions.getGroupId(), id);
-                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                userTemp.setDebt(userTemp.getDebt() + ((transactions.getAmount() / transactions.lender.size()) -
                         (transactions.getAmount() / newList.size())));
-                userGroup.setDebt(userGroup.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                userGroup.setDebt(userGroup.getDebt() + ((transactions.getAmount() / transactions.lender.size()) -
                         (transactions.getAmount() / newList.size())));
                 userRepository.save(userTemp);
                 userGroupRepository.save(userGroup);
@@ -92,8 +92,6 @@ public class TransactionController {
             userTransaction.setGroupId(transactions.getGroupId());
 
             userTransactionRepository.save(userTransaction);
-            userTransactionRepository.save(new UserTransaction(transactions.getGroupId(), transactions.getTransID(), id,
-                    -1 * (transactions.getAmount() / newList.size())));
             if (transactions.getGroupId() == -1) {
                 User userTemp = userRepository.findOne(id);
                 userTemp.setDebt(userTemp.getDebt() - (transactions.getAmount() / newList.size()));
@@ -126,9 +124,9 @@ public class TransactionController {
             } else {
                 User userTemp = userRepository.findOne(id);
                 UserGroup userGroup = userGroupRepository.findByGroupIdAndUserId(transactions.getGroupId(), id);
-                userTemp.setDebt(userTemp.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                userTemp.setDebt(userTemp.getDebt() + ((transactions.getAmount() / transactions.lender.size()) -
                         (transactions.getAmount() / newList.size())));
-                userGroup.setDebt(userGroup.getDebt() - ((transactions.getAmount() / transactions.lender.size()) -
+                userGroup.setDebt(userGroup.getDebt() + ((transactions.getAmount() / transactions.lender.size()) -
                         (transactions.getAmount() / newList.size())));
                 userRepository.save(userTemp);
                 userGroupRepository.save(userGroup);
@@ -195,6 +193,48 @@ public class TransactionController {
         return mylist;
     }
 
+    class UserDebt{
+        private long userId;
+        private String userName;
+        private double debt;
+
+        public long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(long userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public double getDebt() {
+            return debt;
+        }
+
+        public void setDebt(double debt) {
+            this.debt = debt;
+        }
+    }
+
+    @RequestMapping("/transaction/findAmountByTransId")
+    public List<UserDebt> findAmountByTransId(@RequestParam("transId")long transId){
+        List<UserDebt> mylist = new ArrayList<>();
+        for(UserTransaction userTransaction : userTransactionRepository.findByTransID(transId)){
+            UserDebt userDebt  = new UserDebt();
+            userDebt.setUserId(userTransaction.getUserId());
+            userDebt.setUserName(userRepository.findOne(userTransaction.getUserId()).getName());
+            userDebt.setDebt(userTransaction.getPartialAmount());
+            mylist.add(userDebt);
+        }
+        return mylist;
+    }
     @RequestMapping("/transaction/findNonGroupByUserId")
     public List<Transactions> findNonGroupByUserId(@RequestParam("userId") long userId) {
         List<Transactions> mylist = new ArrayList();
