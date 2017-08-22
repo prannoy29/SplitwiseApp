@@ -31,6 +31,16 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK, reason = "My status changed")
     public void save(@RequestBody User user){repository.save(user);}
 
+    @RequestMapping(value="/user/profile", method = RequestMethod.GET)
+    public User profile(@RequestParam("id") long id) throws NullPointerException{
+        User user = repository.findOne(id);
+        if(user == null){
+            throw new NullPointerException("The user id does not exist");
+        }
+        else
+        return user;
+    }
+
     @RequestMapping(value = "/user", method= RequestMethod.PUT)
     public void update(@RequestBody User user){repository.save(user);}
 
