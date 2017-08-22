@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class UserController {
     public User profile(@RequestParam("id") long id) throws NullPointerException{
         User user = repository.findOne(id);
         if(user == null){
-            throw new NullPointerException("The user id does not exist");
+            throw new NullPointerException();
         }
         else
         return user;
@@ -89,4 +91,11 @@ public class UserController {
         return mylist;
 
     }
+
+
+
+    @ExceptionHandler(NullPointerException.class)
+    void handleBadRequests(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value(),"User does not exist");
     }
+}
