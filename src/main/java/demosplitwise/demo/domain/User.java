@@ -159,13 +159,13 @@ public class User implements Serializable{
      * @param phone_number
      * @param age
      */
-    public User(String name,String emailId,String phone_number,int age,String url){
+    public User(String name,String emailId,String phone_number,int age){
             this.name=name;
             this.emailId=emailId;
             this.phoneNumber=phone_number;
             this.age=age;
             this.debt= 0;
-            this.url = url;
+            this.url = "https://lh3.googleusercontent.com/EV-uBBMTPwvvEhdjSkfHpKs0ONPOc2DzihERK-2E2yA";
     }
 
     /**

@@ -34,13 +34,13 @@ public class UserController {
     public void save(@RequestBody User user){repository.save(user);}
 
     @RequestMapping(value="/user/profile", method = RequestMethod.GET)
-    public User profile(@RequestParam("id") long id) throws NullPointerException{
-        User user = repository.findOne(id);
-        if(user == null){
-            throw new NullPointerException();
+    public User profile(@RequestParam("userName") String userName) throws NullPointerException{
+        User tempUser = repository.findByName(userName);
+        if(tempUser == null){
+            throw new NullPointerException("The user id does not exist");
         }
         else
-        return user;
+        return tempUser;
     }
 
     @RequestMapping(value = "/user", method= RequestMethod.PUT)
