@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +92,11 @@ public class UserController {
 
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    void handleBadRequests(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value(),"User does not exist");
+    }
+
     @RequestMapping(value = "user/names", method = RequestMethod.GET)
     public List<String> findAllnames(){
         return repository.allNames();
@@ -97,6 +104,5 @@ public class UserController {
 
     @RequestMapping(value = "user/userId", method = RequestMethod.GET)
     public List<Long> findAllids(){ return repository.allIds(); }
-
 
 }
