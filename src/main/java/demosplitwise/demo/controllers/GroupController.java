@@ -91,8 +91,8 @@ public class GroupController {
         List<Split> mylist = new ArrayList<>();
         List<UserGroup>userGroupList = userGroupRepository.findByGroupIdOrderByDebt(groupId);
         int sizeOfList = userGroupList.size();
-        System.out.println(sizeOfList);
-        while(!userGroupList.isEmpty()||sizeOfList!=0){
+        while(!userGroupList.isEmpty() && sizeOfList>1){
+            System.out.println(sizeOfList);
             double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
            if(Math.abs(userGroupList.get(0).getDebt())> Math.abs(userGroupList.get(sizeOfList-1).getDebt())) {
                Split split = new Split();
@@ -111,17 +111,22 @@ public class GroupController {
                Split split = new Split();
                split.setDebtorId(userGroupList.get(sizeOfList - 1).getUid());
                split.setCreditorId(userGroupList.get(0).getUid());
-               split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
-               split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
+               User tempUser = userRepository.findOne(userGroupList.get(0).getUid());
+               split.setCreditorName(tempUser.getName());
+               tempUser = userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid());
+               split.setDebtorName(tempUser.getName());
                split.setAmount(Math.abs(userGroupList.get(sizeOfList-1).getDebt()));
                mylist.add(split);
                userGroupList.get(0).setDebt(temp);
                userGroupList.get(sizeOfList - 1).setDebt(temp);
+               userGroupList.remove(sizeOfList - 1);
                if(!userGroupList.isEmpty()) {
                    userGroupList.remove(0);
                    sizeOfList = sizeOfList - 2;
                }
                else sizeOfList = sizeOfList - 1;
+
+               System.out.println(sizeOfList);
            }
 
            else
