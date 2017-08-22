@@ -16,4 +16,9 @@ public interface GroupRepository extends CrudRepository<Group,Long> {
 
     @Query("SELECT u FROM Group u where u.groupName LIKE concat(:groupName,'%') ")
     List<Group> matchedNames(@Param("groupName") String groupName);
+
+    @Query("SELECT u.groupId FROM Group u")
+    List<Long> allGroupIds();
 }
+
+

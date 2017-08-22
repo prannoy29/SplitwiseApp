@@ -92,10 +92,17 @@ public class UserController {
 
     }
 
-
-
     @ExceptionHandler(NullPointerException.class)
     void handleBadRequests(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value(),"User does not exist");
     }
+
+    @RequestMapping(value = "user/names", method = RequestMethod.GET)
+    public List<String> findAllnames(){
+        return repository.allNames();
+    }
+
+    @RequestMapping(value = "user/userId", method = RequestMethod.GET)
+    public List<Long> findAllids(){ return repository.allIds(); }
+
 }
