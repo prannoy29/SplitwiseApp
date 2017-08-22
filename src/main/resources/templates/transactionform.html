@@ -1,0 +1,148 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <title>Transaction</title>
+    <meta charset="utf-8" />
+    <link href="/formcss.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/jquerry.js" />
+    <script src="/postrequest.js"></script>
+    <script src="/groupIDpopulate.js"></script>
+    <script src="/userIDpopulate.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script>
+        function gg() {
+            var l = "http://localhost:8080/user/userId";
+            var namelist = test(l);
+
+            var listt = namelist.split(',');
+            multiple(listt);
+
+
+            function test(_url) {
+                var jsonnames = getNameArray(_url, function (d) {
+                    return d;
+                });
+                return jsonnames;
+            }
+
+            function getNameArray(_url, callback) {
+                var data = 0;
+                var p = 0;
+                $.ajax({
+                    url: _url,
+                    type: 'GET',
+                    success: function (response) {
+                        document.getElementById('sp').innerHTML = response;
+                        //console.log(response);
+                        callback(data);
+
+
+                    },
+                    error: function (e) {
+                        alert("Error!");
+                    }
+                });
+                p = document.getElementById('sp').innerHTML;
+                return p;
+            }
+
+            function multiple(items) {
+
+                function split(val) {
+                    return val.split(/,\s*/);
+                }
+
+                function extractLast(term) {
+                    return split(term).pop();
+                }
+
+                $("#lender")
+                    .autocomplete({
+                        minLength: 0,
+                        source: function (request, response) {
+                            response($.ui.autocomplete.filter(
+                                items, extractLast(request.term)));
+                        },
+                        focus: function () {
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            var terms = split(this.value);
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push(ui.item.value);
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push("");
+                            this.value = terms.join(", ");
+                            return false;
+                        }
+                    });
+            };
+        }
+    </script>
+
+</head>
+<body><br />
+<input style="width:0.01px;height:0.01px;" id="sp" />
+<span id="sp"></span><span id="sp1"></span><span id="sp2"></span>
+<div class="container">
+
+    <form id="contact" action = "http://localhost:8080/transaction/save">
+        <h1>Splitwise</h1>
+        <h2>Record your transactions : </h2>
+        <!--(long groupId, List<Long> lender, List<Long> borrower){-->
+        <fieldset>
+            Group ID: (Leave it -1 if if non group expense)
+            <input list="names" required="" value="-1" type="text" id="groupId" class ="required autofocus" name="group ID" autocomplete="off"/>
+            <datalist id="names">
+            </datalist>
+            <!-- <input placeholder="Created By:" id="createdBy" type="text" tabindex="1" class ="required autofocus" name="createdBy" />
+         --></fieldset>
+        <fieldset>
+            <input placeholder="Description" required=""  id="description" type="text" tabindex="1" class ="required autofocus" name="description" />
+        </fieldset>
+        <fieldset>
+            <input placeholder="Amount" required=""  id="amount" type="number" tabindex="1" class ="required autofocus" name="amount" />
+        </fieldset>
+        <fieldset>
+            <input placeholder="Lenders:" onclick="gg()" id="lender" type="text" tabindex="1" class ="required autofocus" name="borrower"/>
+        </fieldset>
+        <fieldset>
+            <input placeholder="Borrowers:" required=""  id="borrower" type="text" tabindex="1" class ="required autofocus" name="borrower" />
+        </fieldset>
+
+
+        <fieldset>
+            <input required=""  id="mop" autocomplete="off" type="text" tabindex="1" class ="required autofocus" placeholder="Mode of payment:" list="browsers" />
+            <datalist id="browsers">
+                <option value="Cash" />
+                <option value="Online banking" />
+                <option value="Debit/Credit Card" />
+                <option value="Online wallets" />
+            </datalist>
+        </fieldset>
+
+        <fieldset>
+            <input placeholder="Date of transaction:" required=""  type="date" tabindex="1" class ="required autofocus" id="dot" name="dot" />
+        </fieldset>
+        <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
+        <div id="post"></div>
+        <!--<fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>-->
+        <fieldset>
+            <button type="button" name="Register new user" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Register New User</button>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
+            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+        </fieldset>
+
+    </form>
+</div>
+<div id="postResultDiv">
+</div>
+</body>
+</html>
