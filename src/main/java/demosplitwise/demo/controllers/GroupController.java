@@ -1,6 +1,7 @@
 package demosplitwise.demo.controllers;
 
 import demosplitwise.demo.domain.Group;
+import demosplitwise.demo.domain.Split;
 import demosplitwise.demo.domain.User;
 import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.repositories.*;
@@ -86,8 +87,8 @@ public class GroupController {
     }
 
     @RequestMapping(value="/group/showSplits",method = RequestMethod.GET)
-    public List<String> showSplits(@RequestParam("groupId")long groupId){
-        List<String> mylist = new ArrayList<>();
+    public List<Split> showSplits(@RequestParam("groupId")long groupId){
+        List<Split> mylist = new ArrayList<>();
         List<UserGroup>userGroupList = userGroupRepository.findByGroupIdOrderByDebt(groupId);
         int sizeOfList = userGroupList.size();
         System.out.println(sizeOfList);
@@ -96,9 +97,7 @@ public class GroupController {
                double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
                userGroupList.get(0).setDebt(temp);
                userGroupList.get(sizeOfList - 1).setDebt(0);
-               mylist.add(String.format("%d owes %d Rupees %f",
-                       userGroupList.get(sizeOfList - 1).getUid(),
-                       userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+               Split split = new Split();
 
                System.out.format("%d owes %d Rupees %f",
                        userGroupList.get(sizeOfList - 1).getUid(),
@@ -107,9 +106,7 @@ public class GroupController {
                sizeOfList = sizeOfList - 1;
            }
            else if (Math.abs(userGroupList.get(0).getDebt())==Math.abs(userGroupList.get(sizeOfList-1).getDebt())){
-               mylist.add(String.format("%d owes %d Rupees %f", userGroupList.get(sizeOfList - 1) .getUid(),
-                       userGroupList.get(0).getUid(), Math.abs(userGroupList.get(0).getDebt())));
-               userGroupList.remove(sizeOfList - 1);
+
                if(!userGroupList.isEmpty()) {
                    userGroupList.remove(0);
                    sizeOfList = sizeOfList - 2;
@@ -122,9 +119,6 @@ public class GroupController {
                 double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
                 userGroupList.get(0).setDebt(0);
                 userGroupList.get(sizeOfList - 1).setDebt(temp);
-                mylist.add(String.format("%s owes %s Rupees %f",
-                        userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName(),
-                        userRepository.findOne(userGroupList.get(0).getUid()).getName(), userGroupList.get(0).getDebt()));
                 userGroupList.remove( 0);
                 sizeOfList = sizeOfList - 1;
 
