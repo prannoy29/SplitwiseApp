@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New user</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="/jquerry.js" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="MultipleUserPopulate.js"></script>
+    <script src="Userpopulate.js"></script>
+    <link href="/formcss.css" rel="stylesheet"/>
+    <script src="/global.js"></script>
+    <style>
+        button {
+            padding:10px
+        }
+        label {
+            cursor:pointer
+        }
+        #form-switch {
+            display:none
+        }
+        #contact{
+            display:none
+        }
+        #form-switch:checked~#contact {
+            display:block
+        }
+        #form-switch:checked~#login-form {
+            display:none
+        }
+    </style>
+
+    <script src="postrequestUser.js"></script>
+
+    <script>
+        $(function() {
+            $('#login-form-link').click(function(e) {
+                $("#login-form").delay(100).fadeIn(100);
+                $("#contact").fadeOut(100);
+                $('#contact-link').removeClass('active');
+                $(this).addClass('active');
+                e.preventDefault();
+            });
+            $('#contact-link').click(function(e) {
+                $("#contact").delay(100).fadeIn(100);
+                $("#login-form").fadeOut(100);
+                $('#login-form-link').removeClass('active');
+                $(this).addClass('active');
+                e.preventDefault();
+            });
+
+        });
+
+    </script>
+</head>
+<body><br />
+<div class="container">
+    <input type='checkbox' id='form-switch' />
+    <form id='login-form' action="" method='post'>
+        <h1>Splitwise</h1>
+        <h2>Login existing user : </h2>
+        <fieldset>
+            <input placeholder="Username:" id="login" type="text" tabindex="1" class ="required autofocus" name="username" required=""  />
+        </fieldset>
+        <fieldset>
+        <button type='submit' id="loginSubmit">Login</button>
+        </fieldset>
+        <fieldset>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
+            <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
+            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+        </fieldset>
+        <label for='form-switch'><span>Register</span></label>
+    </form>
+    <form id='contact' action="" method='post'>
+        <h1>Splitwise</h1>
+        <h2>Register new user : </h2>
+        <fieldset>
+            <input placeholder="User name:" id="name" type="text" tabindex="1" class ="required autofocus" name="name" required=""  />
+        </fieldset>
+        <fieldset>
+            <input placeholder="EMail:" id="emailId" type="text" tabindex="1" class ="required autofocus" name="emailId" required="" />
+        </fieldset>
+        <fieldset>
+            <input placeholder="Phone Number:" id="phoneNumber" type="text" tabindex="1" class ="required autofocus" name="phone number" />
+        </fieldset>
+        <fieldset>
+            <input placeholder="Age:" id="age" type="number" tabindex="1" class ="required autofocus" name="Age" />
+        </fieldset>
+        <fieldset>
+            <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
+        </fieldset>
+        <fieldset>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
+            <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
+            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+        </fieldset>
+        <label for='form-switch'>Already Member? Sign in</label>
+    </form>
+
+</div>
+</body>
+</html>

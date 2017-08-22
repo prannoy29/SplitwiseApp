@@ -1,0 +1,33 @@
+<!--
+Great! All okay.
+Wanna save one more transaction? <button onclick="window.location='http://localhost:8080/'">Add new transaction</button><br />
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Get debt</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="/datatable.js"></script>
+</head>
+<body>
+    <input type="text" id="tf" placeholder="write id" name="id" value="1" />
+    <button type="button" onclick="submitform()">Show</button>
+
+
+<div class = "container">
+    <h1>Debt</h1>
+        <table id="employeesTable" class="display">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Debt</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>

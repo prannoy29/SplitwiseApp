@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New group</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="/formcss.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/Userpopulate.js"></script>
+    <script src="Grouppopulate.js"></script>
+    <script src="/postrequestGroup.js"></script>
+</head>
+<body><br />
+<div class="container">
+
+    <form id="contact">
+        <h1>Splitwise</h1>
+        <h2>Make new group : </h2>
+        <fieldset>
+            <input placeholder="Group name:" id="groupname" required=""  type="text" tabindex="1" class ="required autofocus" name="groupname" />
+        </fieldset>
+        <fieldset>
+            <input list="names" placeholder="User name:" required=""  type="text" id="name" class ="required autofocus" name="username" autocomplete="off"/>
+<datalist id="names">
+</datalist>
+           <!-- <input placeholder="Created By:" id="createdBy" type="text" tabindex="1" class ="required autofocus" name="createdBy" />
+        --></fieldset>
+
+        <fieldset>
+            <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
+        </fieldset>
+        <fieldset>
+            <button type="button" name="Register new user" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Register New User</button>
+            <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
+            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+        </fieldset>
+    </form>
+
+    <div id="postResultDiv">
+    </div>
+    <br/>
+
+    <div id="getResultDiv">
+        <ul class="list-group">
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>
