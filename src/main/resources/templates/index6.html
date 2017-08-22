@@ -14,6 +14,7 @@
     <script src="Userpopulate.js"></script>
     <link href="/formcss.css" rel="stylesheet"/>
     <script src="/global.js"></script>
+    <script src="/logincheck.js"></script>
     <style>
         button {
             padding:10px
@@ -36,6 +37,7 @@
     </style>
 
     <script src="postrequestUser.js"></script>
+<!--
 
     <script>
         $(function() {
@@ -57,19 +59,21 @@
         });
 
     </script>
+-->
 </head>
 <body><br />
 <div class="container">
     <input type='checkbox' id='form-switch' />
-    <form method="GET" target="http://localhost:8080/user/profile" _lpchecked="1" id='login-form'>
+    <form method="GET" target="http://localhost:8080/user/profile" id='login-form'>
         <h1>Splitwise</h1>
         <h2>Login existing user : </h2>
 
         <fieldset>
-            <input placeholder="User ID:" id="login" type="text" tabindex="1" class ="required autofocus" name="id" required=""  />
+            <input placeholder="User Name:" id="login" type="text" tabindex="1" class ="required autofocus" name="id" required=""  />
         </fieldset>
+        <span id="loginSpan"></span>
         <fieldset>
-        <button type='submit'  id="loginSubmit">Login</button>
+        <button type="button" id="loginSubmit" onclick="loginsubmitclick()">Login</button>
         </fieldset>
         <fieldset>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
