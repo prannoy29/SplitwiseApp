@@ -1,2 +1,2 @@
-var globalUser = (#login).val();
-var globalGroup = (#globalgroup).val();
+var globalUser = 0;
+var globalGroup = 0;
