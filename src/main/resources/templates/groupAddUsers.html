@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add group members</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="/formcss.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/jquerry.js" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/Grouppopulate.js"></script>
+    <script src="/Userpopulate.js"></script>
+    <script src="/postGroupAddUser.js"></script>
+</head>
+<body><br />
+<div class="container">
+    <form id="contact">
+        <h1>Splitwise</h1>
+        <h2>Add group members : </h2>
+        <fieldset>
+            <input placeholder="Group ID:" id="groupId" type="number" tabindex="1" class ="required autofocus"  name="groupId" />
+        </fieldset>
+        <fieldset>
+            <input placeholder="Type members names here :" id="groupMembers" type="text" tabindex="1" class ="required autofocus"  name="groupMembers" />
+        </fieldset>
+        <span id="LL"></span>
+        <fieldset>
+            <button type="submit" onclick="clicked()" id="postBtn" class="btn btn-primary">Submit</button>
+        </fieldset>
+
+    </form>
+
+    <div id="postResultDiv">
+    </div>
+    <br/>
+    <div id="getdiv">
+        <button id="getBtn" >Get All Customers</button>
+    </div>
+    <div id="getResultDiv">
+        <ul class="list-group">
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>
