@@ -101,6 +101,8 @@ public class Group implements Serializable {
     public Group(String groupName, String createdBy) {
         this.groupName = groupName;
         this.createdBy = createdBy;
+        this.groupUrl = "https://lh3.googleusercontent.com/EV-uBBMTPwvvEhdjSkfHpKs0ONPOc2DzihERK-2E2yA";
+        this.totalMembers =1;
     }
 
     @Override
