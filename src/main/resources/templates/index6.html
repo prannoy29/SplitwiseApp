@@ -61,14 +61,15 @@
 <body><br />
 <div class="container">
     <input type='checkbox' id='form-switch' />
-    <form id='login-form' action="" method='post'>
+    <form method="GET" target="http://localhost:8080/user/profile" _lpchecked="1" id='login-form'>
         <h1>Splitwise</h1>
         <h2>Login existing user : </h2>
+
         <fieldset>
-            <input placeholder="Username:" id="login" type="text" tabindex="1" class ="required autofocus" name="username" required=""  />
+            <input placeholder="User ID:" id="login" type="text" tabindex="1" class ="required autofocus" name="id" required=""  />
         </fieldset>
         <fieldset>
-        <button type='submit' id="loginSubmit">Login</button>
+        <button type='submit'  id="loginSubmit">Login</button>
         </fieldset>
         <fieldset>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>

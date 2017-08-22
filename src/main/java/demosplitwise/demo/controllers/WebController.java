@@ -18,6 +18,11 @@ public class WebController {
         return "transactionform";
     }
 
+   /* @GetMapping("/user/profile")
+    public String userloginpg() {
+        return "loginpg";
+    }
+*/
     @GetMapping("/user")
     public String userpage() {
         return "index6";

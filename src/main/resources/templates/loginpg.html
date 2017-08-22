@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New user</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="/jquerry.js" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="MultipleUserPopulate.js"></script>
+    <script src="Userpopulate.js"></script>
+    <link href="/formcss.css" rel="stylesheet"/>
+    <script src="/global.js"></script>
+    <script src="postrequestUser.js"></script>
+</head>
+
+<body><br />
+<div class="container">
+
+    <form method="GET" target="http://localhost:8080/user/profile" _lpchecked="1" id='login-form'>
+        <h1>Splitwise</h1>
+        <h2>Login existing user : </h2>
+
+        <fieldset>
+
+            <input placeholder="User ID:" id="login" type="text" tabindex="1" class ="required autofocus" name="username" required=""  />
+        </fieldset>
+        <fieldset>
+            <button type='submit' id="loginSubmit">Login</button>
+        </fieldset>
+        <fieldset>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
+            <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
+            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+        </fieldset>
+        </form>
+
+</div>
+</body>
+</html>

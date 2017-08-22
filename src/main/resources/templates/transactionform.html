@@ -96,7 +96,8 @@
         <h2>Record your transactions : </h2>
         <!--(long groupId, List<Long> lender, List<Long> borrower){-->
         <fieldset>
-            <input list="names" placeholder="Group ID:" required=""  type="text" id="groupId" class ="required autofocus" name="group ID" autocomplete="off"/>
+            Group ID: (Leave it -1 if if non group expense)
+            <input list="names" required="" value="-1" type="text" id="groupId" class ="required autofocus" name="group ID" autocomplete="off"/>
             <datalist id="names">
             </datalist>
             <!-- <input placeholder="Created By:" id="createdBy" type="text" tabindex="1" class ="required autofocus" name="createdBy" />
