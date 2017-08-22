@@ -147,4 +147,8 @@ public class GroupController {
         return mylist;
     }
 
+    @RequestMapping(value = "group/groupId", method = RequestMethod.GET)
+    public List<Long> findAllgrpids(){ return groupRepo.allGroupIds(); }
+
+
 }
