@@ -93,20 +93,30 @@ public class GroupController {
         int sizeOfList = userGroupList.size();
         System.out.println(sizeOfList);
         while(!userGroupList.isEmpty()||sizeOfList!=0){
+            double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
            if(Math.abs(userGroupList.get(0).getDebt())> Math.abs(userGroupList.get(sizeOfList-1).getDebt())) {
-               double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
+               Split split = new Split();
+               split.setDebtorId(userGroupList.get(sizeOfList - 1).getUid());
+               split.setCreditorId(userGroupList.get(0).getUid());
+               split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
+               split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
+               split.setAmount(Math.abs(userGroupList.get(sizeOfList-1).getDebt()));
                userGroupList.get(0).setDebt(temp);
                userGroupList.get(sizeOfList - 1).setDebt(0);
-               Split split = new Split();
-
-               System.out.format("%d owes %d Rupees %f",
-                       userGroupList.get(sizeOfList - 1).getUid(),
-                       userGroupList.get(0).getUid(), userGroupList.get(0).getDebt());
                userGroupList.remove(sizeOfList - 1);
                sizeOfList = sizeOfList - 1;
+               mylist.add(split);
            }
            else if (Math.abs(userGroupList.get(0).getDebt())==Math.abs(userGroupList.get(sizeOfList-1).getDebt())){
-
+               Split split = new Split();
+               split.setDebtorId(userGroupList.get(sizeOfList - 1).getUid());
+               split.setCreditorId(userGroupList.get(0).getUid());
+               split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
+               split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
+               split.setAmount(Math.abs(userGroupList.get(sizeOfList-1).getDebt()));
+               mylist.add(split);
+               userGroupList.get(0).setDebt(temp);
+               userGroupList.get(sizeOfList - 1).setDebt(temp);
                if(!userGroupList.isEmpty()) {
                    userGroupList.remove(0);
                    sizeOfList = sizeOfList - 2;
@@ -116,7 +126,13 @@ public class GroupController {
 
            else
             {
-                double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
+                Split split = new Split();
+                split.setDebtorId(userGroupList.get(sizeOfList - 1).getUid());
+                split.setCreditorId(userGroupList.get(0).getUid());
+                split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
+                split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
+                split.setAmount(Math.abs(userGroupList.get(0).getDebt()));
+                mylist.add(split);
                 userGroupList.get(0).setDebt(0);
                 userGroupList.get(sizeOfList - 1).setDebt(temp);
                 userGroupList.remove( 0);
@@ -127,7 +143,7 @@ public class GroupController {
         return mylist;
     }
 
-    @RequestMapping(value="/group/settleUp",method=RequestMethod.POST)
+    @RequestMapping(value="/group/settleUp",method=RequestMethod.GET)
     public void settleUp(@RequestParam("groupId")long groupId){
         for(UserGroup userGroup:userGroupRepository.findByGroupId(groupId)){
             User userTemp = userRepository.findOne(userGroup.getUid());
