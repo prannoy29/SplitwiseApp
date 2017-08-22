@@ -90,7 +90,8 @@ public class GroupController {
         List<String> mylist = new ArrayList<>();
         List<UserGroup>userGroupList = userGroupRepository.findByGroupIdOrderByDebt(groupId);
         int sizeOfList = userGroupList.size();
-        while(userGroupList!=null){
+        System.out.println(sizeOfList);
+        while(!userGroupList.isEmpty()||sizeOfList!=0){
            if(Math.abs(userGroupList.get(0).getDebt())> Math.abs(userGroupList.get(sizeOfList-1).getDebt())) {
                double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
                userGroupList.get(0).setDebt(temp);
@@ -98,16 +99,22 @@ public class GroupController {
                mylist.add(String.format("%d owes %d Rupees %f",
                        userGroupList.get(sizeOfList - 1).getUid(),
                        userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+
+               System.out.format("%d owes %d Rupees %f",
+                       userGroupList.get(sizeOfList - 1).getUid(),
+                       userGroupList.get(0).getUid(), userGroupList.get(0).getDebt());
                userGroupList.remove(sizeOfList - 1);
                sizeOfList = sizeOfList - 1;
            }
            else if (Math.abs(userGroupList.get(0).getDebt())==Math.abs(userGroupList.get(sizeOfList-1).getDebt())){
-               mylist.add(String.format("%d owes %d Rupees %f",
-                       userGroupList.get(sizeOfList - 1).getUid(),
-                       userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+               mylist.add(String.format("%d owes %d Rupees %f", userGroupList.get(sizeOfList - 1) .getUid(),
+                       userGroupList.get(0).getUid(), Math.abs(userGroupList.get(0).getDebt())));
                userGroupList.remove(sizeOfList - 1);
-               userGroupList.remove(0);
-               sizeOfList = sizeOfList-1;
+               if(!userGroupList.isEmpty()) {
+                   userGroupList.remove(0);
+                   sizeOfList = sizeOfList - 2;
+               }
+               else sizeOfList = sizeOfList - 1;
            }
 
            else
@@ -115,9 +122,9 @@ public class GroupController {
                 double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
                 userGroupList.get(0).setDebt(0);
                 userGroupList.get(sizeOfList - 1).setDebt(temp);
-                mylist.add(String.format("%d owes %d Rupees %f",
-                        userGroupList.get(sizeOfList - 1).getUid(),
-                        userGroupList.get(0).getUid(), userGroupList.get(0).getDebt()));
+                mylist.add(String.format("%s owes %s Rupees %f",
+                        userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName(),
+                        userRepository.findOne(userGroupList.get(0).getUid()).getName(), userGroupList.get(0).getDebt()));
                 userGroupList.remove( 0);
                 sizeOfList = sizeOfList - 1;
 
@@ -126,7 +133,7 @@ public class GroupController {
         return mylist;
     }
 
-    @RequestMapping(value="/group/settleUp",method=RequestMethod.GET)
+    @RequestMapping(value="/group/settleUp",method=RequestMethod.POST)
     public void settleUp(@RequestParam("groupId")long groupId){
         for(UserGroup userGroup:userGroupRepository.findByGroupId(groupId)){
             User userTemp = userRepository.findOne(userGroup.getUid());
