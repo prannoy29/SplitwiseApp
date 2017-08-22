@@ -33,6 +33,9 @@ public class GroupController {
     @RequestMapping(value = "/group/save", method = RequestMethod.POST)
     public void register(@RequestBody Group group){
         groupRepo.save(group);
+        long id = userRepository.findByName((group.getCreatedBy())).getUserId();
+        Long[] users = {id};
+        addUsers(group.getGroupId(),users);
     }
 
     @RequestMapping(value="/group/update",method = RequestMethod.PUT)
@@ -69,6 +72,7 @@ public class GroupController {
     public List<User> findAllUsersByGroupId(@RequestParam("groupId")long groupId){
         List<User> mylist = new ArrayList<>();
         for (UserGroup userGroup: userGroupRepository.findByGroupId(groupId)){
+
             mylist.add(userRepository.findOne(userGroup.getUid()));
         }
         return mylist;
@@ -92,7 +96,6 @@ public class GroupController {
         List<UserGroup>userGroupList = userGroupRepository.findByGroupIdOrderByDebt(groupId);
         int sizeOfList = userGroupList.size();
         while(!userGroupList.isEmpty() && sizeOfList>1){
-            System.out.println(sizeOfList);
             double temp = userGroupList.get(0).getDebt() + userGroupList.get(sizeOfList - 1).getDebt();
            if(Math.abs(userGroupList.get(0).getDebt())> Math.abs(userGroupList.get(sizeOfList-1).getDebt())) {
                Split split = new Split();
@@ -126,7 +129,6 @@ public class GroupController {
                }
                else sizeOfList = sizeOfList - 1;
 
-               System.out.println(sizeOfList);
            }
 
            else
