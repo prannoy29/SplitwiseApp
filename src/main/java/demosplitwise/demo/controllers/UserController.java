@@ -89,4 +89,14 @@ public class UserController {
         return mylist;
 
     }
+
+    @RequestMapping(value = "user/names", method = RequestMethod.GET)
+    public List<String> findAllnames(){
+        return repository.allNames();
     }
+
+    @RequestMapping(value = "user/userId", method = RequestMethod.GET)
+    public List<Long> findAllids(){ return repository.allIds(); }
+
+
+}
