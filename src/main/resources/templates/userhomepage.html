@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>New group</title>
+    <title>Your homepage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -8,30 +8,32 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/Userpopulate.js"></script>
-    <script src="Grouppopulate.js"></script>
-    <script src="/postrequestGroup.js"></script>
-</head>
-<body><br />
-<div class="container">
+    <script src="/globall.js"></script>
+    <script src="/userhomepage.js"></script>
+    <script>
+        function getvari() {
+            var query = window.location.href;
+            var lli = query.split('=');
+            f = lli[1];
+        }
+        function getuserid(){
+            return f;
+        }
+    </script>
 
+</head>
+<body onload="func()"><br />
+<div class="container">
     <form id="contact">
         <h1>Splitwise</h1>
-        <h2>Make new group : </h2>
+        <h2> </h2>
         <fieldset>
-            <input placeholder="Group name:" id="groupname" required=""  type="text" tabindex="1" class ="required autofocus" name="groupname" />
+            <span id = "span1"></span><br />
+            <span id = "span2"></span><br />
+            <span id = "span3"></span>
         </fieldset>
         <fieldset>
-            <input list="names" placeholder="User name:" required=""  type="text" id="name" class ="required autofocus" name="username" autocomplete="off"/>
-<datalist id="names">
-</datalist>
-           <!-- <input placeholder="Created By:" id="createdBy" type="text" tabindex="1" class ="required autofocus" name="createdBy" />
-        --></fieldset>
-
-        <fieldset>
-            <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
-        </fieldset>
-        <fieldset>
+            <button type="button" name="Logout" onclick="logoutclick()" id="logout" data-submit="...Sending">Logout</button><span id="logo"></span>
             <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
             <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
             <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>

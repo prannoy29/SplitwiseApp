@@ -114,7 +114,7 @@ form button[type="submit"] {
 
 form button[type="button"] {
   cursor: pointer;
-  width: 49.55555555555555555555555555555555555555555555555555555555555555555%;
+  width: 100%;
   border: none;
   background: #4CAF50;
   color: #FFF;
