@@ -19,6 +19,7 @@
 
             var listt = namelist.split(',');
             multiple(listt);
+            multipleb(listt);
 
 
             function test(_url) {
@@ -82,6 +83,40 @@
                         }
                     });
             };
+
+            function multipleb(items) {
+
+                function split(val) {
+                    return val.split(/,\s*/);
+                }
+
+                function extractLast(term) {
+                    return split(term).pop();
+                }
+
+                $("#borrower")
+                    .autocomplete({
+                        minLength: 0,
+                        source: function (request, response) {
+                            response($.ui.autocomplete.filter(
+                                items, extractLast(request.term)));
+                        },
+                        focus: function () {
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            var terms = split(this.value);
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push(ui.item.value);
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push("");
+                            this.value = terms.join(", ");
+                            return false;
+                        }
+                    });
+            };
         }
     </script>
 
@@ -97,27 +132,27 @@
         <!--(long groupId, List<Long> lender, List<Long> borrower){-->
         <fieldset>
             Group ID: (Leave it -1 if if non group expense)
-            <input list="names" required="" value="-1" type="text" id="groupId" class ="required autofocus" name="group ID" autocomplete="off"/>
+            <input list="names"  value="-1" type="number" id="groupId" class ="required autofocus" name="group ID" autocomplete="off"/>
             <datalist id="names">
             </datalist>
             <!-- <input placeholder="Created By:" id="createdBy" type="text" tabindex="1" class ="required autofocus" name="createdBy" />
          --></fieldset>
         <fieldset>
-            <input placeholder="Description" required=""  id="description" type="text" tabindex="1" class ="required autofocus" name="description" />
+            <input placeholder="Description"   id="description" type="text" tabindex="1" class ="required autofocus" name="description" />
         </fieldset>
         <fieldset>
-            <input placeholder="Amount" required=""  id="amount" type="number" tabindex="1" class ="required autofocus" name="amount" />
+            <input placeholder="Amount"   id="amount" type="number" tabindex="1" class ="required autofocus" name="amount" />
         </fieldset>
         <fieldset>
             <input placeholder="Lenders:" onclick="gg()" id="lender" type="text" tabindex="1" class ="required autofocus" name="borrower"/>
         </fieldset>
         <fieldset>
-            <input placeholder="Borrowers:" required=""  id="borrower" type="text" tabindex="1" class ="required autofocus" name="borrower" />
+            <input placeholder="Borrowers:"   id="borrower" type="text" tabindex="1" class ="required autofocus" name="borrower" />
         </fieldset>
 
 
         <fieldset>
-            <input required=""  id="mop" autocomplete="off" type="text" tabindex="1" class ="required autofocus" placeholder="Mode of payment:" list="browsers" />
+            <input   id="mop" autocomplete="off" type="text" tabindex="1" class ="required autofocus" placeholder="Mode of payment:" list="browsers" />
             <datalist id="browsers">
                 <option value="Cash" />
                 <option value="Online banking" />
@@ -127,7 +162,7 @@
         </fieldset>
 
         <fieldset>
-            <input placeholder="Date of transaction:" required=""  type="date" tabindex="1" class ="required autofocus" id="dot" name="dot" />
+            <input placeholder="Date of transaction:"   type="date" tabindex="1" class ="required autofocus" id="dot" name="dot" />
         </fieldset>
         <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
         <div id="post"></div>
@@ -137,7 +172,7 @@
         <fieldset>
             <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
-            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
         </fieldset>
 
     </form>

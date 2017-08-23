@@ -28,6 +28,7 @@ function myFunction() {
             }
         });
         p = document.getElementById('sp').innerHTML;
+
         return p;
     }
 }

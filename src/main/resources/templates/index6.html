@@ -20,21 +20,21 @@
         button {
             padding:10px
         }*/
-        label {
-            cursor:pointer
-        }
-        #form-switch {
-            display:none
-        }
-        #contact{
-            display:none
-        }
-        #form-switch:checked~#contact {
-            display:block
-        }
-        #form-switch:checked~#login-form {
-            display:none
-        }
+    label {
+        cursor:pointer
+    }
+    #form-switch {
+        display:none
+    }
+    #contact{
+        display:none
+    }
+    #form-switch:checked~#contact {
+        display:block
+    }
+    #form-switch:checked~#login-form {
+        display:none
+    }
     </style>
 
     <script src="postrequestUser.js"></script>
@@ -49,11 +49,12 @@
         <h2>Login existing user : </h2>
 
         <fieldset>
-            <input placeholder="User Name:" id="login" type="text" tabindex="1" class ="required autofocus" name="id" required=""  />
+            <input placeholder="User Name:" id="login" type="text" tabindex="1" class ="required autofocus" name="id"   />
         </fieldset>
         <span id="loginSpan"></span>
+        <span id="loginSpan11"></span>
         <fieldset>
-        <button type="button" id="loginSubmit" onclick="loginsubmitclick()">Login</button>
+            <button type="button" id="loginSubmit" onclick="loginsubmitclick()">Login</button>
         </fieldset>
         <fieldset>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
@@ -66,13 +67,13 @@
         <h1>Splitwise</h1>
         <h2>Register new user : </h2>
         <fieldset>
-            <input placeholder="User name:" id="name" type="text" tabindex="1" class ="required autofocus" name="name" required=""  />
+            <input placeholder="User name:" id="name" type="text" tabindex="1" class ="required autofocus" name="name"   />
         </fieldset>
         <fieldset>
-            <input placeholder="EMail:" id="emailId" type="text" tabindex="1" class ="required autofocus" name="emailId" required="" />
+            <input placeholder="EMail:" id="emailId" type="email" tabindex="1" class ="required autofocus" name="emailId"  />
         </fieldset>
         <fieldset>
-            <input placeholder="Phone Number:" id="phoneNumber" type="text" tabindex="1" class ="required autofocus" name="phone number" />
+            <input placeholder="Phone Number:" id="phoneNumber" type="number" tabindex="1" class ="required autofocus" name="phone number" />
         </fieldset>
         <fieldset>
             <input placeholder="Age:" id="age" type="number" tabindex="1" class ="required autofocus" name="Age" />
@@ -83,7 +84,7 @@
         <fieldset>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
             <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
-            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
         </fieldset>
         <label for='form-switch'>Already Member? Sign in</label>
     </form>

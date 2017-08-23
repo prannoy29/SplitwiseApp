@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link href="/formcss.css" rel="stylesheet"/>
+    <link rel="import" href="globl.html" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/globall.js"></script>
     <script src="/userhomepage.js"></script>
     <script>
+
         function getvari() {
             var query = window.location.href;
             var lli = query.split('=');
             f = lli[1];
+            f = parseInt(f);
+            func(f);
+            func1(f);
+            func2(f);
         }
         function getuserid(){
             return f;
@@ -22,15 +28,15 @@
     </script>
 
 </head>
-<body onload="func()"><br />
+<body onload="getvari()"><br />
 <div class="container">
     <form id="contact">
         <h1>Splitwise</h1>
         <h2> </h2>
         <fieldset>
-            <span id = "span1"></span><br />
-            <span id = "span2"></span><br />
+            <span id = "span1"></span>
             <span id = "span3"></span>
+            <span id = "span2"></span>
         </fieldset>
         <fieldset>
             <button type="button" name="Logout" onclick="logoutclick()" id="logout" data-submit="...Sending">Logout</button><span id="logo"></span>

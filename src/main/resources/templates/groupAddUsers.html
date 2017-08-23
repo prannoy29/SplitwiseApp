@@ -10,9 +10,79 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="/jquerry.js" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/Grouppopulate.js"></script>
-    <script src="/Userpopulate.js"></script>
+    <script src="/groupIDpopulate.js"></script>
+    <script src="/userIDpopulate.js"></script>
     <script src="/postGroupAddUser.js"></script>
+    <script>
+        function gg() {
+            var l = "http://localhost:8080/user/userId";
+            var namelist = test(l);
+
+            var listt;
+            listt = namelist.split(',');
+            multiple(listt);
+
+
+            function test(_url) {
+                var jsonnames = getNameArray(_url, function (d) {
+                    return d;
+                });
+                return jsonnames;
+            }
+
+            function getNameArray(_url, callback) {
+                var data = 0;
+                var p = 0;
+                $.ajax({
+                    url: _url,
+                    type: 'GET',
+                    success: function (response) {
+                        callback(data);
+
+
+                    },
+                    error: function (e) {
+                        alert("Error!");
+                    }
+                });
+                return p;
+            }
+
+            function multiple(items) {
+
+                function split(val) {
+                    return val.split(/,\s*/);
+                }
+
+                function extractLast(term) {
+                    return split(term).pop();
+                }
+
+                $("#useridname")
+                    .autocomplete({
+                        minLength: 0,
+                        source: function (request, response) {
+                            response($.ui.autocomplete.filter(
+                                items, extractLast(request.term)));
+                        },
+                        focus: function () {
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            var terms = split(this.value);
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push(ui.item.value);
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push("");
+                            this.value = terms.join(", ");
+                            return false;
+                        }
+                    });
+            };
+        }
+    </script>
 </head>
 <body><br />
 <div class="container">
@@ -20,14 +90,24 @@
         <h1>Splitwise</h1>
         <h2>Add group members : </h2>
         <fieldset>
-            <input placeholder="Group ID:" id="groupId" type="number" tabindex="1" class ="required autofocus"  name="groupId" />
-        </fieldset>
-        <fieldset>
-            <input placeholder="Type members names here :" id="groupMembers" type="text" tabindex="1" class ="required autofocus"  name="groupMembers" />
+            <input list="names" placeholder="Group ID" name="groupId"  type="number" id="groupId" class ="required autofocus" autocomplete="off"/>
+            <datalist id="names">
+            </datalist>
+
+            <input placeholder="User IDS :" onclick="gg()" id="useridname" autocomplete="off" type="text" tabindex="1" class ="required autofocus"  name="groupMembers" />
+            <datalist id="names">
+            </datalist>
         </fieldset>
         <span id="LL"></span>
         <fieldset>
+
+        </fieldset>
+        <fieldset>
             <button type="submit" onclick="clicked()" id="postBtn" class="btn btn-primary">Submit</button>
+            <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
+            <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
+            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
         </fieldset>
 
     </form>
@@ -35,9 +115,6 @@
     <div id="postResultDiv">
     </div>
     <br/>
-    <div id="getdiv">
-        <button id="getBtn" >Get All Customers</button>
-    </div>
     <div id="getResultDiv">
         <ul class="list-group">
         </ul>
