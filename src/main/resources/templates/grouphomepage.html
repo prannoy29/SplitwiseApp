@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>New group</title>
+    <title>Group homepage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -8,29 +8,37 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/userIDpopulate.js"></script>
-    <script src="/postrequestGroup.js"></script>
-</head>
-<body><br />
-<div class="container">
+    <script src="/globall.js"></script>
+    <script src="/groupHomepage.js"></script>
+    <script>
+        var f;
+        function getvar() {
+            var query = window.location.href;
+            var lli = query.split('=');
+            f = lli[1];
+            f = parseInt(f);
+            getusers(f);
+            getsplits(f);
+        }
+        function getgroupid(){
+            return f;
+        }
+    </script>
 
+</head>
+<body onload="getvar()"><br />
+<div class="container">
     <form id="contact">
         <h1>Splitwise</h1>
-        <h2>Make new group : </h2>
+        <h4><span id="sp"></span></h4>
+        <h4><span id="sp1"></span></h4>
+        <fieldset>
+            <button type="button" onclick="window.location='http://localhost:8080/group/addUsers'">Add Users</button>
 
-        <fieldset>
-            <input placeholder="Group Name: " type="text" class ="required autofocus" name="id" autocomplete="off"/>
-        </fieldset>
-        <fieldset>
-            <input list="names" placeholder="User ID"  id="useridname" name="groupId"  type="text" class ="required autofocus" autocomplete="off"/>
-            <datalist id="names">
-            </datalist>
-        </fieldset>
 
-        <fieldset>
-            <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
         </fieldset>
         <fieldset>
+            <button type="button" name="settle up" id="settleUp" onclick="window.location='http://localhost:8080/group/settleUp?groupId='+getgroupid()" data-submit="...Sending">Settle up this group</button><span id="settle"></span>
             <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
             <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
             <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>

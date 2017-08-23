@@ -19,10 +19,6 @@ $( document ).ready(function() {
                     $('#names').append('<option value="' + data[i] + '">' +  '</option>');
                 }
             },
-            /*error : function(e) {
-                $("#getResultDiv").html("<strong>Error</strong>");
-                console.log("ERROR: ", e);
-            }*/
         });
     }
 })

@@ -1,39 +1,48 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>New group</title>
+    <title>Your homepage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link href="/formcss.css" rel="stylesheet"/>
+    <link rel="import" href="globl.html" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/userIDpopulate.js"></script>
-    <script src="/postrequestGroup.js"></script>
-</head>
-<body><br />
-<div class="container">
+    <script src="/globall.js"></script>
+    <script src="/userhomepage.js"></script>
+    <script>
 
+        function getvari() {
+            var query = window.location.href;
+            var lli = query.split('=');
+            f = lli[1];
+            f = parseInt(f);
+            func(f);
+            func1(f);
+            func2(f);
+        }
+        function getuserid(){
+            return f;
+        }
+    </script>
+
+</head>
+<body onload="getvari()"><br />
+<div class="container">
     <form id="contact">
         <h1>Splitwise</h1>
-        <h2>Make new group : </h2>
-
+        <h2> </h2>
         <fieldset>
-            <input placeholder="Group Name: " type="text" class ="required autofocus" name="id" autocomplete="off"/>
+            <span id = "span1"></span>
+            <span id = "span3"></span>
+            <span id = "span2"></span>
         </fieldset>
         <fieldset>
-            <input list="names" placeholder="User ID"  id="useridname" name="groupId"  type="text" class ="required autofocus" autocomplete="off"/>
-            <datalist id="names">
-            </datalist>
-        </fieldset>
-
-        <fieldset>
-            <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
-        </fieldset>
-        <fieldset>
+            <button type="button" name="Logout" onclick="logoutclick()" id="logout" data-submit="...Sending">Logout</button><span id="logo"></span>
             <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
             <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
-            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
+            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
         </fieldset>
     </form>
 

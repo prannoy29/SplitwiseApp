@@ -47,4 +47,15 @@ public class WebController {
     public String homepagee() {
         return "homep";
     }
+
+    @GetMapping("/homepage")
+    public String userhomepage(@RequestParam("id") Long userId) {
+        return "userhomepage";
+    }
+
+    @GetMapping("/group")
+    public String grouphomepage(@RequestParam("groupId") String groupId)
+    {
+        return "grouphomepage";
+    }
 }

@@ -1,2 +1,2 @@
-var globalUser = 0;
-var globalGroup = 0;
+var globalUser;
+var globalUserName;
