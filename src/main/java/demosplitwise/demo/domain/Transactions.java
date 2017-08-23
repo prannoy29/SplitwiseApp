@@ -100,7 +100,7 @@ public class Transactions implements Serializable{
      * @return amount
      */
     public double getAmount() {
-        return amount;
+        return Math.round(amount*100.00)/100;
     }
 
 
