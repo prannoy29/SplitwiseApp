@@ -25,7 +25,7 @@
         </datalist><button type="button" id="submit" onclick="document.getElementById('sp').innerHTML=myFunction()">User Debt</button>
         <span id="sp"></span><span id="sr"></span>
     </form>
-    <form method="GET" target="_blank" action="http://localhost:8080/user/findById" _lpchecked="1">
+    <form method="GET" target="_blank" action="http://localhost:8080/homepage" _lpchecked="1">
 
         <input list="names" placeholder="write User id to know all detail" type="text" id="useridname" class ="required autofocus" name="id" autocomplete="off"/>
         <datalist id="names">
@@ -46,18 +46,19 @@
             <!--<input type="text" id="id" name="id" />-->
             <button type="submit" id="submit">Group Splits</button></fieldset>
     </form>
-    <form method="GET" target="_blank" action="http://localhost:8080/group/findById" _lpchecked="1">
+    <form method="GET" target="_blank" action="http://localhost:8080/group" _lpchecked="1">
         <fieldset>
-            <input list="names" placeholder="Write group ID to know group details" name="groupId"  type="text" id="groupId" class ="required autofocus" autocomplete="off"/>
+            <input list="names" placeholder="Group HomePage" name="groupId"  type="text" id="groupId" class ="required autofocus" autocomplete="off"/>
             <datalist id="names">
             </datalist>
             <button type="submit" id="submit">Group details</button></fieldset>
+        <fieldset>
+            <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
+            <button type="button" name="Make new Transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
+        </fieldset>
     </form>
-    <fieldset>
-        <button type="button" name="Register new user" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Register New User</button>
-        <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
-        <button type="button" name="Make new Transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
-    </fieldset>
+
 
 
 </div>

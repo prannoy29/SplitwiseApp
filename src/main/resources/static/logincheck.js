@@ -1,3 +1,8 @@
+function g(){
+    document.getElementById("loginSpan1").innerHTML = globalUser;
+
+}
+
 function loginsubmitclick() {
 
     var usernameinput = document.getElementById("login").value;
@@ -17,8 +22,10 @@ function loginsubmitclick() {
             dataType: 'json',
             success: function (data) {
 
-                globalUser = data.userId;
-                document.getElementById("loginSpan").innerHTML = "You are logged in.";
+                loginfuncId(data.userId);
+
+                loginfuncName(data.name);
+                document.getElementById("loginSpan").innerHTML = "You are logged in. User ID : "+getloginfuncId();
 
             },
             error: function () {
