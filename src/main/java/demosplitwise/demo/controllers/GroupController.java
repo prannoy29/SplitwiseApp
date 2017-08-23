@@ -78,17 +78,26 @@ public class GroupController {
         return mylist;
     }
     @RequestMapping(value = "/group/addUsers",method = RequestMethod.POST)
-    public void addUsers(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long[] userId){
+    public void addUsers(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long[] userId) {
         Date today = new Date();
-        for (long i: userId) {
-            UserGroup x = new UserGroup(groupId,i,today,0);
-            userGroupRepository.save(x);
+        int j =0;
+        for (long i : userId) {
+            if (userGroupRepository.findByGroupIdAndUserId(groupId, i) == null) {
+                UserGroup x = new UserGroup(groupId, i, today, 0);
+                userGroupRepository.save(x);
+                j++;
+
+            }
         }
         Group group = findById(groupId);
         int members = group.getTotalMembers();
-        group.setTotalMembers(members+userId.length);
+        group.setTotalMembers(members + j);
         update(group);
     }
+
+
+
+
 
     @RequestMapping(value="/group/showSplits",method = RequestMethod.GET)
     public List<Split> showSplits(@RequestParam("groupId")long groupId){
@@ -108,6 +117,7 @@ public class GroupController {
                userGroupList.get(sizeOfList - 1).setDebt(0);
                userGroupList.remove(sizeOfList - 1);
                sizeOfList = sizeOfList - 1;
+               if(!(split.getAmount() ==0))
                mylist.add(split);
            }
            else if (Math.abs(userGroupList.get(0).getDebt())==Math.abs(userGroupList.get(sizeOfList-1).getDebt())){
@@ -119,7 +129,7 @@ public class GroupController {
                tempUser = userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid());
                split.setDebtorName(tempUser.getName());
                split.setAmount(Math.abs(userGroupList.get(sizeOfList-1).getDebt()));
-               mylist.add(split);
+               if(!(split.getAmount() ==0))mylist.add(split);
                userGroupList.get(0).setDebt(temp);
                userGroupList.get(sizeOfList - 1).setDebt(temp);
                userGroupList.remove(sizeOfList - 1);
@@ -139,7 +149,7 @@ public class GroupController {
                 split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
                 split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
                 split.setAmount(Math.abs(userGroupList.get(0).getDebt()));
-                mylist.add(split);
+                if(!(split.getAmount() ==0))mylist.add(split);
                 userGroupList.get(0).setDebt(0);
                 userGroupList.get(sizeOfList - 1).setDebt(temp);
                 userGroupList.remove( 0);
