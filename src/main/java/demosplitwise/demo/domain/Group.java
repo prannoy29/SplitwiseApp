@@ -5,6 +5,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -36,11 +38,12 @@ public class Group implements Serializable {
         this.groupName = groupName;
     }
 
-
+    Date doc = new Date();
+    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
     @Column(name = "date_of_creation",updatable = false)
-    private Date dateOfCreation = new Date();
+    private String dateOfCreation = df.format(doc);
 
-    public Date getDateOfCreation() {
+    public String getDateOfCreation() {
         return dateOfCreation;
     }
 
