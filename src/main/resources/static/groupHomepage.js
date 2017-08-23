@@ -21,11 +21,14 @@ function getusers(grupid) {
                 var datalen = response.length;
                 for(var i=0;i<datalen;i++){
                     if(response[i] != null)
-                    nameslist.push("<b>"+response[i].name+"</b>");
+                    nameslist.push("<b> "+response[i].name+" </b>");
 
                 }
-                var g  = nameslist.toString();
-                document.getElementById("sp").innerHTML = "Members of group are : "+g;
+                var g  = nameslist.toString().replace(",","");
+                if(g.length>0)
+                document.getElementById("sp").innerHTML = "Members of group are : <h3>"+g+"</h3>";
+                else
+                    document.getElementById("sp").innerHTML = "No members";
                 callback(data);
 
 
@@ -69,12 +72,12 @@ function getsplits(grupid) {
                     */
 
                     if(response[i] != null && response[i].amount != 0)
-                        splitlist.push("<b>"+response[i].debtorName + "</b>"+ " owes " + "<b>"+ response[i].creditorName+"</b>"+" the amount of "+response[i].amount + "<br />");
+                        splitlist.push("<b> Rs. "+response[i].amount+" - "+ response[i].debtorName + "</b>"+ " owes " + "<b>"+ response[i].creditorName+"</b><br />");
 
                 }
                 var g  = splitlist.toString();
                 if(splitlist.length>0)
-                document.getElementById("sp1").innerHTML = "Splits are : <br />"+g;
+                document.getElementById("sp1").innerHTML = "Splits are : <br /><h3>"+g+"</h3>";
                 else document.getElementById("sp1").innerHTML = "Nothing due in this group";
 
                 callback(data);

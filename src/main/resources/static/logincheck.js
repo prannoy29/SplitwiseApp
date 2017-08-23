@@ -23,7 +23,6 @@ function loginsubmitclick() {
             success: function (data) {
 
                 loginfuncId(data.userId);
-
                 loginfuncName(data.name);
                 document.getElementById("loginSpan").innerHTML = "You are logged in. User ID : "+getloginfuncId();
 

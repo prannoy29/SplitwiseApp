@@ -16,9 +16,10 @@
 </head>
 <body><br />
 <div class="container">
-    <h2> Splitwise Home </h2>
+
 
     <form method="GET" target="_blank" _lpchecked="1">
+        <h1> Splitwise Home </h1>
         <input list="names" placeholder="write User id to know debt" type="text" id="useridname" class ="required autofocus" name="userId" autocomplete="off"/>
 
         <datalist id="names">
@@ -31,27 +32,20 @@
         <datalist id="names">
         </datalist><button type="submit" id="submit">User Details</button>
     </form>
-    <form method="GET" target="_blank" action="http://localhost:8080/group/settleUp" _lpchecked="1">
-        <input list="names" placeholder="Group ID:" type="text" id="groupId" class ="required autofocus" name="groupId" autocomplete="off"/>
-            <datalist id="names">
-            </datalist>
-            <!--<input type="text" id="id" placeholder="Write group ID here" name="id" />-->
-            <button type="submit" id="submit">Settle up group</button>
-    </form>
-    <form method="GET" target="_blank" action="http://localhost:8080/group/showSplits" _lpchecked="1">
-        <fieldset>
-            <input list="names" placeholder="Write group ID to know splits"   type="text" id="groupId" class ="required autofocus" name="groupId" autocomplete="off"/>
-            <datalist id="names">
-            </datalist>
-            <!--<input type="text" id="id" name="id" />-->
-            <button type="submit" id="submit">Group Splits</button></fieldset>
-    </form>
     <form method="GET" target="_blank" action="http://localhost:8080/group" _lpchecked="1">
         <fieldset>
             <input list="names" placeholder="Group HomePage" name="groupId"  type="text" id="groupId" class ="required autofocus" autocomplete="off"/>
             <datalist id="names">
             </datalist>
-            <button type="submit" id="submit">Group details</button></fieldset>
+            <button type="submit" id="submit">Group details</button></fieldset></form>
+    <form method="GET" target="_blank" action="http://localhost:8080/group/settleUp" _lpchecked="1">
+        <input list="names" placeholder="Group ID:" type="text" id="groupId" class ="required autofocus" name="groupId" autocomplete="off"/>
+        <datalist id="names">
+        </datalist>
+        <!--<input type="text" id="id" placeholder="Write group ID here" name="id" />-->
+        <button type="submit" id="submit">Group Settle up</button>
+    </form>
+    <form>
         <fieldset>
             <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
