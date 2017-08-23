@@ -112,7 +112,7 @@ public class GroupController {
                split.setCreditorId(userGroupList.get(0).getUid());
                split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
                split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
-               split.setAmount(Math.abs(userGroupList.get(sizeOfList-1).getDebt()));
+               split.setAmount(Math.round(Math.abs(userGroupList.get(sizeOfList-1).getDebt())*100.00)/100.00);
                userGroupList.get(0).setDebt(temp);
                userGroupList.get(sizeOfList - 1).setDebt(0);
                userGroupList.remove(sizeOfList - 1);
@@ -128,7 +128,7 @@ public class GroupController {
                split.setCreditorName(tempUser.getName());
                tempUser = userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid());
                split.setDebtorName(tempUser.getName());
-               split.setAmount(Math.abs(userGroupList.get(sizeOfList-1).getDebt()));
+               split.setAmount(Math.round(Math.abs(userGroupList.get(sizeOfList-1).getDebt())*100.00)/100.00);
                if(!(split.getAmount() ==0))mylist.add(split);
                userGroupList.get(0).setDebt(temp);
                userGroupList.get(sizeOfList - 1).setDebt(temp);
@@ -148,7 +148,7 @@ public class GroupController {
                 split.setCreditorId(userGroupList.get(0).getUid());
                 split.setCreditorName(userRepository.findOne(userGroupList.get(0).getUid()).getName());
                 split.setDebtorName(userRepository.findOne(userGroupList.get(sizeOfList - 1).getUid()).getName());
-                split.setAmount(Math.abs(userGroupList.get(0).getDebt()));
+                split.setAmount(Math.round(Math.abs(userGroupList.get(0).getDebt())*100.00)/100.00);
                 if(!(split.getAmount() ==0))mylist.add(split);
                 userGroupList.get(0).setDebt(0);
                 userGroupList.get(sizeOfList - 1).setDebt(temp);
