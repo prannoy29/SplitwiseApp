@@ -59,6 +59,7 @@ $( document ).ready(function() {
     }
     
     function resetData(){
+        document.getElementById("w").innerHTML = "<h1>Saved</h1>";
         $("#groupId").val("");
         $("#description").val("");
 			$("#amount").val("");

@@ -125,6 +125,7 @@
 <input style="width:0.01px;height:0.01px;" id="sp" />
 <span id="sp"></span><span id="sp1"></span><span id="sp2"></span>
 <div class="container">
+    <span id="w"></span>
 
     <form id="contact" action = "http://localhost:8080/transaction/save">
         <h1>Splitwise</h1>
@@ -144,7 +145,7 @@
             <input placeholder="Amount"   id="amount" type="number" tabindex="1" class ="required autofocus" name="amount" />
         </fieldset>
         <fieldset>
-            <input placeholder="Lenders:" onclick="gg()" id="lender" type="text" tabindex="1" class ="required autofocus" name="borrower"/>
+            <input placeholder="Lenders:" onclick="gg()" id="lender" type="text" tabindex="1" class ="required autofocus" name="lender"/>
         </fieldset>
         <fieldset>
             <input placeholder="Borrowers:"   id="borrower" type="text" tabindex="1" class ="required autofocus" name="borrower" />
