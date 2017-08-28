@@ -35,7 +35,7 @@ public class UserTransaction {
     }
 
     public double getPartialAmount() {
-        return partialAmount;
+        return Math.round(partialAmount*100.00)/100.00;
     }
 
     public void setPartialAmount(double partialAmount) {
