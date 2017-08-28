@@ -149,7 +149,7 @@ public class TransactionController {
     }
 
     @RequestMapping("/transaction/findById")
-    public Transactions findById(@RequestParam("id") long id) {
+    public Transactions findById(@RequestParam("transId") long id) {
         Transactions transaction = transRepository.findOne(id);
         transaction.setLender(allLenders(id));
         transaction.setBorrower(allBorrowers(id));
@@ -157,7 +157,7 @@ public class TransactionController {
     }
 
     @RequestMapping("/transaction/findAllByGroupId")
-    public List<Transactions> findAllByGroupId(@RequestParam("id") long id) {
+    public List<Transactions> findAllByGroupId(@RequestParam("groupId") long id) {
         List<Transactions> mylist = new ArrayList();
         for (Transactions transactions : transRepository.findByGroupId(id)) {
             transactions.setLender(allLenders(transactions.getTransID()));
@@ -169,7 +169,7 @@ public class TransactionController {
     }
 
     @RequestMapping("/transaction/findAllByUserId")
-    public List<Transactions> findAllByUserId(@RequestParam("id") long id) {
+    public List<Transactions> findAllByUserId(@RequestParam("userId") long id) {
         List<Transactions> mylist = new ArrayList();
         for (UserTransaction userTransaction : userTransactionRepository.findByUserId(id)) {
             Transactions transaction = transRepository.findOne(userTransaction.getTransID());

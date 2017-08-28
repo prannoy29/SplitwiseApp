@@ -2,7 +2,6 @@ package demosplitwise.demo.controllers;
 
 
 import demosplitwise.demo.domain.User;
-import demosplitwise.demo.domain.UserGroup;
 import demosplitwise.demo.domain.UserTransaction;
 import demosplitwise.demo.repositories.UserGroupRepository;
 import demosplitwise.demo.repositories.UserRepository;
