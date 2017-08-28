@@ -33,6 +33,8 @@ public class UserGroup {
     @Column(name = "group_debt")
     private double debt;
 
+
+
     protected UserGroup() {
 
     }
@@ -70,8 +72,7 @@ public class UserGroup {
     }
 
     public double getDebt() {
-        return debt;
-    }
+        return Math.round(debt*100.00)/100.00;    }
 
     public void setDebt(double debt) {
         this.debt = debt;

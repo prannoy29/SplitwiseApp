@@ -120,7 +120,7 @@ public class User implements Serializable{
      * @return int debt
      */
     public double getDebt() {
-        return debt;
+        return Math.round(debt*100.00)/100.00;
     }
 
     /**
