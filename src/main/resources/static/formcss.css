@@ -101,6 +101,8 @@ form textarea {
   resize: none;
 }
 
+
+
 form button[type="submit"] {
   cursor: pointer;
   width: 100%;
@@ -158,4 +160,30 @@ form textarea:focus {
 
 :-ms-input-placeholder {
   color: #888;
+}
+
+.topcorner{
+    cursor: pointer;
+    border: none;
+    background: black;
+    color: #FFF;
+    margin: 0 0 2px;
+    padding: 10px;
+    font-size: 15px;
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+.homepagee{
+  cursor: pointer;
+  border: none;
+  background: slategrey;
+  color: #FFF;
+  margin: 0 0 2px;
+  padding: 10px;
+  font-size: 15px;
+  position:absolute;
+  top:0;
+    right: 70px;
 }

@@ -15,7 +15,7 @@ $( document ).ready(function() {
         // PREPARE FORM DATA
         var formData = {
             groupName : $("#groupname").val(),
-            createdBy :  $("#name").val(),
+            createdBy :  localStorage.getItem('name1')
         }
 
         // DO POST

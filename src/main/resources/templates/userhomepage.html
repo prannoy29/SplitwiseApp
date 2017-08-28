@@ -10,13 +10,37 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/globall.js"></script>
+    <script src="/loginlogout.js"></script>
     <script src="/userhomepage.js"></script>
+    <style type="text/css">
+        iv{
+            border:1px solid #000;
+            font-family:arial;
+            height:100px;
+            width:200px;
+        }
+        ul{
+            list-style:none;
+            max-height:100px;
+            margin:0;
+            overflow:auto;
+            padding:0;
+            text-indent:10px;
+        }
+        li{
+            line-height:25px;
+        }
+        li:nth-child(even){
+            background:#ccc;
+        }
+    </style>
     <script>
 
         function getvari() {
+            logilogo();
             var query = window.location.href;
             var lli = query.split('=');
-            f = lli[1];
+            f = localStorage.getItem('id1');
             f = parseInt(f);
             func(f);
             func1(f);
@@ -30,19 +54,36 @@
 </head>
 <body onload="getvari()"><br />
 <div class="container">
+    <button type="button" class="topcorner"  id="loginn" onclick="nction()">Login</button>
+    <button type="button" class="topcorner"  id="logoutt" onclick="ncion()">Logout</button>
+    <button type="button" class="homepagee"  id="homepage" onclick="window.location='http://localhost:8080/homepage?id='+localStorage.getItem('id1')">Splitwise</button>
+
+
     <form id="contact">
         <h1>Splitwise</h1>
         <h2> </h2>
         <fieldset>
             <span id = "span1"></span>
-            <span id = "span3"></span>
+            <fieldset>
+                <table border="1px" width="100%">
+                    <tr>
+                        <th>Debt</th>
+                        <td id="span3"> </td>
+                    </tr>
+                <tr>
+                    <th> Groups </th>
+                    <td><ul id="ull"></ul></td>
+                </tr>
+                </table>
+                <br />
+            </fieldset>
+
             <span id = "span2"></span>
         </fieldset>
+
         <fieldset>
-            <button type="button" name="Logout" onclick="logoutclick()" id="logout" data-submit="...Sending">Logout</button><span id="logo"></span>
-            <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
+            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
             <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
-            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
         </fieldset>
     </form>
 

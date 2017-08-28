@@ -9,10 +9,34 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/globall.js"></script>
+    <script src="/loginlogout.js"></script>
     <script src="/groupHomepage.js"></script>
+    <style type="text/css">
+        iv{
+            border:1px solid #000;
+            font-family:arial;
+            height:100px;
+            width:200px;
+        }
+        ul{
+            list-style:none;
+            max-height:100px;
+            margin:0;
+            overflow:auto;
+            padding:0;
+            text-indent:10px;
+        }
+        li{
+            line-height:25px;
+        }
+        li:nth-child(even){
+            background:#ccc;
+        }
+    </style>
     <script>
         var f;
         function getvar() {
+            logilogo();
             var query = window.location.href;
             var lli = query.split('=');
             f = lli[1];
@@ -28,21 +52,32 @@
 </head>
 <body onload="getvar()"><br />
 <div class="container">
+    <button type="button" class="topcorner"  id="loginn" onclick="nction()">Login</button>
+    <button type="button" class="topcorner"  id="logoutt" onclick="ncion()">Logout</button>
+    <button type="button" class="homepagee"  id="homepage" onclick="window.location='http://localhost:8080/homepage?id='+localStorage.getItem('id1')">Splitwise</button>
+
+
     <form id="contact">
         <h1>Splitwise</h1>
         <h4><span id="sp"></span></h4>
+        <fieldset>
+            <span id = "span1"></span>
+
+                <h3>Groups</h3>
+                <ul id="ulll">
+                </ul>
+            </fieldset>
+        <br />
+        <h3>Group Splits</h3>
+        <ul id="ulll2">
+        </ul>
         <h4><span id="sp1"></span></h4>
         <fieldset>
             <button type="button" onclick="window.location='http://localhost:8080/group/addUsers'">Add Users</button>
-
-
         </fieldset>
         <fieldset>
             <button type="button" name="settle up" id="settleUp" onclick="window.location='http://localhost:8080/group/settleUp?groupId='+getgroupid()" data-submit="...Sending">Settle up this group</button><span id="settle"></span>
-            <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
-            <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
-            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
-        </fieldset>
+            </fieldset>
     </form>
 
     <div id="postResultDiv">

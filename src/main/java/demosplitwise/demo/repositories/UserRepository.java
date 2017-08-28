@@ -17,7 +17,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("SELECT name FROM User u")
     List<String> allNames();
 
+    @Query("SELECT emailId FROM User u")
+    List<String> allEmails();
 
     User findByName(String name);
+    User findByEmailId(String emailId);
 
 }

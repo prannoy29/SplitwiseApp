@@ -34,6 +34,8 @@ public class GroupController {
     public void register(@RequestBody Group group){
         groupRepo.save(group);
         long id = userRepository.findByName((group.getCreatedBy())).getUserId();
+        System.out.println(id);
+
         Long[] users = {id};
         addUsers(group.getGroupId(),users);
     }
@@ -77,6 +79,7 @@ public class GroupController {
         }
         return mylist;
     }
+
     @RequestMapping(value = "/group/addUsers",method = RequestMethod.POST)
     public void addUsers(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long[] userId) {
         Date today = new Date();

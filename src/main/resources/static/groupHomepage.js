@@ -21,12 +21,15 @@ function getusers(grupid) {
                 var datalen = response.length;
                 for(var i=0;i<datalen;i++){
                     if(response[i] != null)
-                    nameslist.push("<b> "+response[i].name+" </b>");
+                    nameslist.push(response[i].name);
 
                 }
                 var g  = nameslist.toString().replace(",","");
-                if(g.length>0)
-                document.getElementById("sp").innerHTML = "Members of group are : <h3>"+g+"</h3>";
+                if(g.length>0){
+
+                    for ( var tt=0; tt<nameslist.length; tt++) {
+                        $('#ulll').append('<li>' + nameslist[tt] + '</li>');
+                    }}
                 else
                     document.getElementById("sp").innerHTML = "No members";
                 callback(data);
@@ -56,6 +59,10 @@ function getsplits(grupid) {
         var data;
         var p = 0;
         var splitlist = [];
+        var splitlist1 = [];
+        var splitlist2 = [];
+        var splitlist3 = [];
+
         $.ajax({
             url: _url,
             type: 'GET',
@@ -72,21 +79,18 @@ function getsplits(grupid) {
                     */
 
                     if(response[i] != null && response[i].amount != 0)
-                        splitlist.push("<b> Rs. "+response[i].amount+" - "+ response[i].debtorName + "</b>"+ " owes " + "<b>"+ response[i].creditorName+"</b><br />");
-
-                }
+                    {
+                        $('#ulll2').append('<li>Rs. '+response[i].amount+" - "+ response[i].debtorName + " owes " + response[i].creditorName + '</li>');
+                    }
+                        }
                 var g  = splitlist.toString();
-                if(splitlist.length>0)
-                document.getElementById("sp1").innerHTML = "Splits are : <br /><h3>"+g+"</h3>";
-                else document.getElementById("sp1").innerHTML = "Nothing due in this group";
+
 
                 callback(data);
 
 
             },
-            error: function(){
-                document.getElementById("sp1").innerHTML = "Nothing due in this group";
-            }
+
         });
     }
 }
