@@ -10,11 +10,12 @@
     <script type="text/javascript" src="/jquerry.js" />
     <script src="/postrequest.js"></script>
     <script src="/groupIDpopulate.js"></script>
+    <script src="/loginlogout.js"></script>
     <script src="/userIDpopulate.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <script>
         function gg() {
-            var l = "http://localhost:8080/user/userId";
+            var l = "http://localhost:8080/user/emails";
             var namelist = test(l);
 
             var listt = namelist.split(',');
@@ -121,10 +122,17 @@
     </script>
 
 </head>
-<body><br />
+<body onload="logilogo()"><br />
 <input style="width:0.01px;height:0.01px;" id="sp" />
 <span id="sp"></span><span id="sp1"></span><span id="sp2"></span>
 <div class="container">
+    <button type="button" class="topcorner"  id="loginn" onclick="nction()">Login</button>
+    <button type="button" class="topcorner"  id="logoutt" onclick="ncion()">Logout</button>
+    <button type="button" class="homepagee"  id="homepage" onclick="window.location='http://localhost:8080/homepage?id='+localStorage.getItem('id1')">Splitwise</button>
+
+
+    <span id="w"></span>
+
 
     <form id="contact" action = "http://localhost:8080/transaction/save">
         <h1>Splitwise</h1>
@@ -144,7 +152,7 @@
             <input placeholder="Amount"   id="amount" type="number" tabindex="1" class ="required autofocus" name="amount" />
         </fieldset>
         <fieldset>
-            <input placeholder="Lenders:" onclick="gg()" id="lender" type="text" tabindex="1" class ="required autofocus" name="borrower"/>
+            <input placeholder="Lenders:" onclick="gg()" id="lender" type="text" tabindex="1" class ="required autofocus" name="lender"/>
         </fieldset>
         <fieldset>
             <input placeholder="Borrowers:"   id="borrower" type="text" tabindex="1" class ="required autofocus" name="borrower" />
@@ -164,16 +172,12 @@
         <fieldset>
             <input placeholder="Date of transaction:"   type="date" tabindex="1" class ="required autofocus" id="dot" name="dot" />
         </fieldset>
-        <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
+        <button type="submit" id="postBtn" class="btn btn-primary">Save</button>
         <div id="post"></div>
         <!--<fieldset>
             <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
         </fieldset>-->
-        <fieldset>
-            <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
-            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
-            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
-        </fieldset>
+        <span id="hhh">ghi</span>
 
     </form>
 </div>

@@ -61,6 +61,16 @@ public class UserController {
         return repository.findOne(id);
     }
 
+    @RequestMapping(value = "/user/findByEmailId", method= RequestMethod.GET)
+    public Long emailidfind(@RequestParam("emailId") String emailId) throws NullPointerException{
+        User tempUser = repository.findByEmailId(emailId);
+        if(tempUser == null){
+            throw new NullPointerException("The user id does not exist");
+        }
+        else
+            return tempUser.getUserId();
+    }
+
     @RequestMapping(value = "/user/groupExpense",method = RequestMethod.GET)
     public double groupExpense(@RequestParam("userId")long userId,
                             @RequestParam("groupId")long groupId){
@@ -99,6 +109,11 @@ public class UserController {
     @RequestMapping(value = "user/names", method = RequestMethod.GET)
     public List<String> findAllnames(){
         return repository.allNames();
+    }
+
+    @RequestMapping(value = "user/emails", method = RequestMethod.GET)
+    public List<String> findAllemails(){
+        return repository.allEmails();
     }
 
     @RequestMapping(value = "user/userId", method = RequestMethod.GET)

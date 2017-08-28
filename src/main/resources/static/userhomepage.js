@@ -1,5 +1,4 @@
 function func(userid) {
-
     var l = "http://localhost:8080/user/totalExpense?userId=".concat(userid);
     test2(l);
 
@@ -18,7 +17,7 @@ function func(userid) {
             type: 'GET',
             dataType: "json",
             success: function (response) {
-                document.getElementById("span3").innerHTML = "<b>Debt is :<h3>"+ response +"</h3></b>";
+                document.getElementById("span3").innerHTML = response;
                 callback(data);
 
 
@@ -46,21 +45,29 @@ function func1(userid) {
        var data;
        var p = 0;
        var detaillist = [];
+       var detaillist1 = [];
        $.ajax({
            url: _url,
            type: 'GET',
            dataType: "json",
            success: function (response) {
                if(response != null) {
-                   detaillist.push("<b>UserID is : <h3>" + response.userId + "</h3></b><br />");
-                   detaillist.push("<b>User Name is : <h3>" + response.name + "</h3></b><br />");
-                   detaillist.push("<b>Email ID is :  <h3>" + response.emailId + "</h3></b><br />");
-                   detaillist.push("<b>Phone number is : <h3>" + response.phoneNumber + "</h3></b><br />");
-                   detaillist.push("<b>Age is :  <h3>" + response.age + "</h3></b><br />");
-                   var a = detaillist.toString().replace(',', '');
-                   a = a.replace(',', '');
-                   if (detaillist.length > 0)
-                       document.getElementById("span1").innerHTML = a;
+                   detaillist.push("UserID"); detaillist1.push(response.userId);
+                   detaillist.push("User Name "); detaillist1.push(response.name);
+                   detaillist.push("Email ID "); detaillist1.push(response.emailId);
+                   detaillist.push("Phone number "); detaillist1.push(response.phoneNumber);
+                   detaillist.push("Age "); detaillist1.push(response.age);
+                   var htmm = "<br /><table border=0.5 width=100%>";
+                   for(j=0;j<5;j++)
+                   {
+                       htmm += "<tr><th>" + detaillist[j] + "</th><td>"+ detaillist1[j] +"</td></tr>";
+                   }
+                   htmm += "</tr></table>";
+                   document.getElementById("span1").innerHTML = htmm;
+
+
+
+
                }
                else document.getElementById("span1").innerHTML = "No user present";
 
@@ -77,7 +84,7 @@ function func1(userid) {
 
 
 function func2(userid) {
-    var t = "http://localhost:8080//group/findAllByUserId?userId=".concat(userid);
+    var t = "http://localhost:8080/group/findAllByUserId?userId=".concat(userid);
     test112(t);
 
     function test112(_url) {
@@ -90,20 +97,36 @@ function func2(userid) {
         var data;
         var p = 0;
         var detaillist = [];
+        var groupidlist = [];
         $.ajax({
             url: _url,
             type: 'GET',
             dataType: "json",
             success: function (response) {
+                var grouplist = [];
+
 
                     for(var i = 0; i<response.length;i++){
                         detaillist.push(response[i].groupName+" ");
+                        groupidlist.push(response[i].groupId+" ");
+                        grouplist.push("<a target='_blank' href='http://localhost:8080/group?groupId=" +
+                            response[i].groupId + "'>" + response[i].groupName + "</a>");
                     }
-                    var a = detaillist.toString();
-                    a = a.replace(',', '');
-                    if (a.length > 0)
-                        document.getElementById("span2").innerHTML = "User is present in : <h3>" + a + "</h3>";
 
+                    var a = detaillist.toString();
+                //document.getElementById("span2").innerHTML = "User is present in : " + grouplist;
+
+
+                    a = a.split(",") ;
+
+
+                    if (detaillist.length > 0)/*
+                        document.getElementById("span2").innerHTML = "User is present in : " + grouplist;
+*/                  {
+                        for ( var i=0; i<grouplist.length; i++) {
+                            $('#ull').append('<li>' + detaillist[i] + '</li>');
+                        }
+                    }
                 else document.getElementById("span2").innerHTML = "";
 
                 callback(data);

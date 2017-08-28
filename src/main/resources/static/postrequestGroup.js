@@ -15,7 +15,7 @@ $( document ).ready(function() {
         // PREPARE FORM DATA
         var formData = {
             groupName : $("#groupname").val(),
-            createdBy :  $("#name").val(),
+            createdBy :  localStorage.getItem('name1')
         }
 
         // DO POST
@@ -31,11 +31,11 @@ $( document ).ready(function() {
                             + result.data.groupName + " which is created by " + result.data.createdBy + "</strong>");
                 }
                 console.log("Success");
-            },
+            },/*
             error : function(e) {
                 alert("Error!")
                 console.log("ERROR: ");
-            }
+            }*/
         });
 
         // Reset FormData after Posting
@@ -44,6 +44,7 @@ $( document ).ready(function() {
     }
 
     function resetData(){
+        document.getElementById("w").innerHTML = "<h1>Saved</h1>";
         $("#groupname").val("");
         $("#name").val("");
     }

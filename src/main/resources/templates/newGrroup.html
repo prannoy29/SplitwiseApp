@@ -9,32 +9,29 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/userIDpopulate.js"></script>
+    <script src="/loginlogout.js"></script>
     <script src="/postrequestGroup.js"></script>
 </head>
-<body><br />
+<body onload="logilogo()"><br />
 <div class="container">
+
+    <button type="button" class="topcorner"  id="loginn" onclick="nction()">Login</button>
+    <button type="button" class="topcorner"  id="logoutt" onclick="ncion()">Logout</button>
+    <button type="button" class="homepagee"  id="homepage" onclick="window.location='http://localhost:8080/homepage?id='+localStorage.getItem('id1')">Splitwise</button>
 
     <form id="contact">
         <h1>Splitwise</h1>
         <h2>Make new group : </h2>
 
+
         <fieldset>
-            <input placeholder="Group Name: " type="text" class ="required autofocus" name="id" autocomplete="off"/>
-        </fieldset>
-        <fieldset>
-            <input list="names" placeholder="User ID"  id="useridname" name="groupId"  type="text" class ="required autofocus" autocomplete="off"/>
-            <datalist id="names">
-            </datalist>
+            <input id="groupname" placeholder="Group Name: " type="text" class ="required autofocus" name="id" autocomplete="off"/>
         </fieldset>
 
         <fieldset>
-            <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
+            <button type="submit" id="postBtn" class="btn btn-primary">Add</button>
         </fieldset>
-        <fieldset>
-            <button type="button" name="Login/Register" onclick="window.location='http://localhost:8080/user'" id="contact-submit" data-submit="...Sending">Login/Register</button>
-            <button type="button" name="Make new transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New transaction</button>
-            <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
-        </fieldset>
+
     </form>
 
     <div id="postResultDiv">

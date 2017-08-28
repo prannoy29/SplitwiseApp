@@ -42,6 +42,8 @@
 </head>
 <body><br />
 <div class="container">
+
+    <span id="w"></span>
     <input type='checkbox' id='form-switch' />
     <span id="loginSpan1"></span>
     <form method="GET" target="http://localhost:8080/user/profile" id='login-form'>
@@ -49,18 +51,23 @@
         <h2>Login existing user : </h2>
 
         <fieldset>
-            <input placeholder="User Name:" id="login" type="text" tabindex="1" class ="required autofocus" name="id"   />
+            <input list="names" placeholder="User Name:" id="login" type="text" autocomplete="off" tabindex="1" class ="required autofocus" name="id"   />
+            <datalist id="names">
+            </datalist>
         </fieldset>
         <span id="loginSpan"></span>
         <span id="loginSpan11"></span>
-        <fieldset>
+        <fieldset><!--
+            <script>
+                function gg() {
+
+                }
+            </script>-->
+
             <button type="button" id="loginSubmit" onclick="loginsubmitclick()">Login</button>
         </fieldset>
-        <fieldset>
-            <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
-            <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
-            <button type="submit" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
-        </fieldset>
+        <!--<fieldset>
+            </fieldset>-->
         <label for='form-switch'><span>Register</span></label>
     </form>
     <form id='contact' action="" method='post'>
@@ -81,11 +88,11 @@
         <fieldset>
             <button type="submit" id="postBtn" class="btn btn-primary">Submit</button>
         </fieldset>
-        <fieldset>
+        <!--<fieldset>
             <button type="button" name="Make new group" onclick="window.location='http://localhost:8080/group/save'" id="contact-submit" data-submit="...Sending">Make new group</button>
             <button type="button" name="New transaction" onclick="window.location='http://localhost:8080/transaction/save'" id="contact-submit" data-submit="...Sending">New Transaction</button>
             <button type="button" name="Home" onclick="window.location='http://localhost:8080/'" id="contact-submit" data-submit="...Sending">Homepage</button>
-        </fieldset>
+        </fieldset>-->
         <label for='form-switch'>Already Member? Sign in</label>
     </form>
 

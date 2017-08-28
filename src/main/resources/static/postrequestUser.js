@@ -18,7 +18,6 @@ $( document ).ready(function() {
     		emailId :  $("#emailId").val(),
 			phoneNumber: $("#phoneNumber").val(),
 			age: $("#age").val(),
-			//debt: $("#debt").val()
 
 
     	}
@@ -40,13 +39,14 @@ $( document ).ready(function() {
 				console.log("Success");
 			}
 		});
-    	
+        document.getElementById("w").innerHTML = "<h1>Saved</h1>";
     	// Reset FormData after Posting
     	resetData();
 
     }
     
     function resetData(){
+        document.getElementById("w").innerHTML = "Saved";
     	$("#name").val("");
     	$("#emailId").val("");
         $("#phoneNumber").val("");
