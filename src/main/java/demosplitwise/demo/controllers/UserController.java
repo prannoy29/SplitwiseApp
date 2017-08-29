@@ -29,7 +29,7 @@ public class UserController {
 
 
     @RequestMapping(value ="/user", method= RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK, reason = "My status changed")
+    @ResponseStatus(value = HttpStatus.OK, reason = "New User added")
     public void save(@RequestBody User user){repository.save(user);}
 
     @RequestMapping(value="/user/profile", method = RequestMethod.GET)
