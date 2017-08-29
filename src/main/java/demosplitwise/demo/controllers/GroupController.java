@@ -31,13 +31,14 @@ public class GroupController {
     UserRepository userRepository;
 
     @RequestMapping(value = "/group/save", method = RequestMethod.POST)
-    public void register(@RequestBody Group group){
+    public Group register(@RequestBody Group group){
         groupRepo.save(group);
         long id = userRepository.findByName((group.getCreatedBy())).getUserId();
         System.out.println(id);
 
         Long[] users = {id};
         addUsers(group.getGroupId(),users);
+        return group;
     }
 
     @RequestMapping(value="/group/update",method = RequestMethod.PUT)
